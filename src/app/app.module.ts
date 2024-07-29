@@ -61,7 +61,6 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { EditorModule } from 'primeng/editor';
 import { FieldsetModule } from 'primeng/fieldset';
-import { FileUploadModule } from 'primeng/fileupload';
 import { GalleriaModule } from 'primeng/galleria';
 import { InplaceModule } from 'primeng/inplace';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -138,7 +137,6 @@ import { HomePageComponent } from './Components/home-page/home-page.component';
 import { CustomerProfileComponent } from './Components/customer-profile/customer-profile.component';
 import { ExportToSheetComponent } from './Components/export-to-sheet/export-to-sheet.component';
 import { NgxSpinnerModule } from "ngx-spinner";
-
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NavComponent } from './Components/nav/nav.component';
@@ -149,7 +147,11 @@ import { PropilComponent } from './Components/propil/propil.component';
 import { PropilListComponent } from './Components/propil-list/propil-list.component';
 import { UsersComponent } from './Components/users/users.component';
 import { UploadFilseComponent } from './Components/upload-filse/upload-filse.component';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRippleModule } from '@angular/material/core';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
+import { FileUploadModule } from 'primeng/fileupload';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -201,6 +203,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    MatTabsModule,
+    MatButtonToggleModule,
+    MatRippleModule,
+    MatMenuModule,
     NgxSpinnerModule,
     TranslateModule,
     BrowserModule,

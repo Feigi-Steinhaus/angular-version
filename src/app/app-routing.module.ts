@@ -24,46 +24,66 @@ import { CustomerProfileComponent } from './Components/customer-profile/customer
 import { ListDocumentComponent } from './Components/documens/list-document/list-document.component';
 import { AuthGuard } from './Guard/auth.guard';
 import { Error404Component } from './Components/errors/error-404.component';
+import { PropilListComponent } from './Components/propil-list/propil-list.component';
+import { UsersComponent } from './Components/users/users.component';
+import { ChatComponent } from './Components/chat/chat.component';
 const routes: Routes = [
-  { path: 'customer', component: CustomersComponent, canActivate: [AuthGuard], data: { roles: [3, 2, 1] } },
-  { path: 'worker', component: WorkerComponentComponent, canActivate: [AuthGuard], data: { roles: [2, 1] } },
-  { path: 'admin', component: AdminComponentComponent, canActivate: [AuthGuard], data: { roles: [1] } },
-  { path: 'customer', component: CustomersComponent},
+   // 1=customer, 2=worker, 3=admin
+  // { path: 'worker', component: WorkerComponentComponent, canActivate: [AuthGuard], data: { roles: [3] } },
+  // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: { roles: [3] } },
+  // { path: 'customer', component: CustomersComponent, canActivate: [AuthGuard], data: { roles: [3,2] } },
+  // { path: 'edit', component: EditUserComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'add', component: AddUserComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'task', component: TaskBoardComponent ,canActivate: [AuthGuard], data: { roles: [3,2] }},
+  // { path: 'addProject', component: AddProjectComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'add-task/:id', component: AddTaskComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'project', component: ProjectTableComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'projectTable', component: ProjectTableComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'customer-profile', component: CustomerProfileComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'add-task', component: AddTaskComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'addLead', component: AddLeadComponent,canActivate: [AuthGuard], data: { roles: [3] } },
+  // { path: 'editLead', component: EditLeadComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'leads', component: ListLeadsComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+  // { path: 'propil', component: PropilListComponent ,canActivate: [AuthGuard], data: { roles: [3] }},
+
+  { path: 'customer', component: CustomersComponent },
   { path: 'worker', component: WorkerComponentComponent },
-  { path: 'admin', component: AdminComponentComponent},
+  {path: 'users', component : UsersComponent},
+  { path: 'admin', component: AdminComponentComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomePageComponent },
   { path: 'edit', component: EditUserComponent },
   { path: 'add', component: AddUserComponent },
   { path: 'sign-up', component: SignUpComponent },
+  { path: 'task', component: TaskBoardComponent },
   { path: 'addProject', component: AddProjectComponent },
   { path: 'add-task/:id', component: AddTaskComponent },
   { path: 'project', component: ProjectTableComponent },
   { path: 'projectTable', component: ProjectTableComponent },
   { path: 'signUp', component: SignUpComponent },
-  { path: 'home/:role', component: HomePageComponent },
+  { path: 'home', component: HomePageComponent },
   { path: 'customer-profile', component: CustomerProfileComponent },
-
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'add-task', component: AddTaskComponent },
   { path: 'add-task/:id', component: AddTaskComponent },
   { path: 'addLead', component: AddLeadComponent },
   { path: 'editLead', component: EditLeadComponent },
-  { path: 'document', component: DocumentComponent },
-
+  { path: 'documents', component: ListDocumentComponent },
+  { path: 'leads', component: ListLeadsComponent },
+  { path: 'propil', component: PropilListComponent },
+  { path: 'chat', component: ChatComponent },
   {
     path: 'leads',
     component: ListLeadsComponent,
     children: [{ path: '', component: LeadComponent }],
   },
-
-  { path: 'task', component: TaskBoardComponent },
   {
     path: 'ResetPassword',
     component: ResetPasswordComponent,
     canActivate: [AuthCodeGuard],
   },
-  { path: '**', component: Error404Component }
+  { path: '404-not-found', pathMatch: 'full',  component:Error404Component },
+  { path: '**', redirectTo: '404-not-found' },
+  { path: 'home/:role', component: HomePageComponent }
 ];
 
 @NgModule({
