@@ -1,0 +1,36 @@
+/* Ensure the logo is the same size as other bar items */
+.w3-logo {
+    height: 60px; /* Adjust height to match other bar items */
+    width: auto;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+  
+  /* Flexbox container for vertical alignment */
+  .w3-flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between items */
+  }
+  
+  /* Flexbox container for links */
+  .w3-flex-items {
+    display: flex;
+    align-items: center;
+    margin: 0 auto; /* Center the links */
+  }
+  
+  /* Center alignment for the links */
+  .w3-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Container for the logo */
+  .w3-logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  

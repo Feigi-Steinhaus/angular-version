@@ -1,0 +1,12 @@
+<div class="button-wrapper" *ngIf="isAdmin">
+ 
+    <button (click)="navigateTo('customer')">Customer</button>
+    <button (click)="navigateTo('leads')">Lead</button>
+    <button (click)="navigateTo('task')">Tasks</button>
+    <button (click)="navigateTo('projectTable')">Projects</button>
+    <button (click)="navigateTo('document')">Documentation</button>
+    <button (click)="navigateTo('customer-profile')">Customer Profile</button>
+  </div>
+    <div *ngIf="!isAdmin">
+      <button  class="button-wrap"(click)="navigateTo('document')">Documentation</button>
+    </div>

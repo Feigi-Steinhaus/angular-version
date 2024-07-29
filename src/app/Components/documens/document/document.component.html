@@ -1,0 +1,31 @@
+<form class="addDocument" id="addDocument" [formGroup]="documentForm" (ngSubmit)="addDocumentSubmit()">
+  <div class="form-group">
+    <label for="title">כותרת</label>
+    <input type="text" formControlName="title" required placeholder="כותרת" />
+    <div *ngIf="submitted && documentForm.controls['title'].errors">
+      <span *ngIf="documentForm.controls['title'].errors['required']">שדה חובה</span>
+      <span *ngIf="documentForm.controls['title'].errors['invalidName']">כותרת קצרה</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">תאור המסמך</label>
+    <input type="text" formControlName="description" required placeholder="תאור המסמך" />
+    <div *ngIf="submitted && documentForm.controls['description'].errors">
+      <span *ngIf="documentForm.controls['description'].errors['required']">שדה חובה</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="file">קובץ</label>
+    <input id="document-file" type="file" (change)="onFileChange($event)" formControlName="filePath" required
+      accept=".pdf,.png,.jpg,.jpeg,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx" />
+    <div *ngIf="submitted && documentForm.controls['filePath'].errors">
+      <span *ngIf="documentForm.controls['filePath'].errors['required']">שדה חובה</span>
+    </div>
+  </div>
+
+  <button type="submit">לאישור</button>
+</form>
+
+<button (click)="openEditDocumentPopup()" class="document-file">להוספת מסמך</button>

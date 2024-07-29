@@ -1,0 +1,83 @@
+.editCustomer {
+  display: none; 
+}
+.addCustomer {
+  display: none; 
+}
+.addCustomer{
+
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #F9F9F9;
+  }
+  .addCustomer form div {
+    margin-bottom: 15px;
+  }
+  .addCustomer label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .addCustomer input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  .addCustomer button {
+    width: 100%;
+    padding: 10px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .addCustomer button:hover {
+    background: #0056B3;
+  }
+  .addCustomer div span {
+    color: red;
+    font-size: 12px;
+  }
+  .editCustomer{
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #F9F9F9;
+  }
+  .editCustomer form div {
+    margin-bottom: 15px;
+  }
+  .editCustomer label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .editCustomer input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  .editCustomer button {
+    width: 100%;
+    padding: 10px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .editCustomer button:hover {
+    background: #0056B3;
+  }
+  .editCustomer  span {
+    color: red;
+    font-size: 12px;
+  }
+  #editCustomerForm {
+    display: none; /* Initially hide the form */
+  }
+  

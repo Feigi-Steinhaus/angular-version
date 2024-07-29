@@ -1,0 +1,31 @@
+
+<h2>Edit User</h2>
+<button (click)="edit()" *ngIf="!flag">עריכה</button>
+<div>
+   
+    <form class="editForm" #f=ngForm *ngIf="flag">
+        <div >
+            <label for="firstName"> FirstName</label>
+            <input #f type="text" name="firstName" [required]="true" maxlength="20" [(ngModel)]="user.firstName">
+        </div>
+        <div >
+            <label for="lastName"> LastName</label>
+            <input #l type="text" name="lastName" [required]="true" maxlength="20" [(ngModel)]="user.lastName">
+        </div>
+        <div >
+            <label for="Email"> Email</label>
+            <input #n type="text" name="Email" [required]="true" maxlength="20" [(ngModel)]="user.email">
+        </div>
+        <div >
+            <label for="Password"> Password</label>
+            <input #n type="text" name="Password" [required]="true" maxlength="20" [(ngModel)]="user.password">
+        </div>
+        <label for="role"> Role</label>
+        <select name="role" [(ngModel)]="user.role">
+            <option value="admin">Admin</option>
+            <option value="worker">Worker</option>
+            <option value="customer">Customer</option>
+        </select>
+
+        <button (click)="submit()">לסיום </button>
+    </form>

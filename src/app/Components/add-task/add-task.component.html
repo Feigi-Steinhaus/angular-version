@@ -1,0 +1,79 @@
+<div class="add-task-form">
+  <form (ngSubmit)="onSubmit()" [formGroup]="taskForm">
+    <h1>{{this.titlePage |translate}}</h1>
+
+    <div class="line"></div>
+
+    <label for="title">{{'TitleInputLabel'|translate}}</label>
+    <div class="card flex justify-content-center">
+      <input type="text" id="title" pInputText class="input-field" formControlName="title" />
+      <div class="error-message" *ngIf="title!.invalid && (title!.touched || title!.dirty)">
+        <span *ngIf="title!.errors?.['required']">{{'RequiredField'|translate}}</span>
+      </div>
+    </div>
+
+    <label for="description">{{'DescriptionInputLabel'|translate}}</label>
+    <div class="card flex justify-content-center">
+      <input type="text" pInputText id="description" class="input-field" formControlName="description" />
+      <div class="error-message" *ngIf="description!.invalid && (description!.touched || description!.dirty)">
+        <span *ngIf="description!.errors?.['required']">{{'RequiredField'|translate}}</span>
+      </div>
+    </div>
+
+    <label for="date">{{'DueDateInputLabel'|translate}}</label>
+    <div class="card">
+      <p-calendar id="date" formControlName="dueDate" placeholder="mm/dd/yyyy" class="input-field"></p-calendar>
+      <div class="error-message" *ngIf="dueDate!.invalid && (dueDate!.touched || dueDate!.dirty)">
+        <span *ngIf="dueDate!.errors?.['required']; else notFutureDate">{{'RequiredField'|translate}}</span>
+        <ng-template #notFutureDate>
+          <span *ngIf="dueDate!.errors?.['notFutureDate']">{{'DueDateError'|translate}}</span>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="card">
+      <p-dropdown formControlName="priority" [options]="priorities" optionLabel="description"
+        [placeholder]="'PriorityInputSelect'|translate" class="input-field"></p-dropdown>
+      <div class="error-message" *ngIf="priority!.invalid && (priority!.touched || priority!.dirty)">
+        <span>{{'RequiredField'|translate}}</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <p-dropdown formControlName="status" [options]="statuses" optionLabel="description"
+        [placeholder]="'StatusInputSelect'|translate" class="input-field"></p-dropdown>
+      <div class="error-message" *ngIf="status!.invalid && (status!.touched || status!.dirty)">
+        <span>{{'RequiredField'|translate}}</span>
+      </div>
+    </div>
+
+    <label for="assignedTo">{{'UserInputSelect'|translate}}</label>
+    <div id="assignedTo" class="card">
+      <p-autoComplete [dropdown]="true" [suggestions]="filteredUsers" (completeMethod)="filterUserAuto($event)"
+        field="firstName" (onSelect)="onUserSelected($event)" formControlName="assignedTo" class="input-field">
+        <ng-template let-user pTemplate="item">
+          {{ displayFn(user) }}
+        </ng-template>
+      </p-autoComplete>
+      <div class="error-message" *ngIf="assignedTo!.invalid && (assignedTo!.touched || assignedTo!.dirty)">
+        <span *ngIf="assignedTo!.errors?.['required']">{{'RequiredField'|translate}}</span>
+      </div>
+      <p class="error-message" *ngIf="!assignedTo!.errors?.['required'] && userExistError">{{'ExistWorkerError'|translate}}
+      </p>
+    </div>
+
+    <label for="project">{{'ProjectInputSelect'|translate}}</label>
+    <div id="project" class="card">
+      <p-autoComplete [dropdown]="true" [suggestions]="filteredProjects" (completeMethod)="filterProjectAuto($event)"
+        field="name" (onSelect)="onProjectSelected($event)" formControlName="project"
+        class="input-field"></p-autoComplete>
+      <div class="error-message" *ngIf="project!.invalid && (project!.touched || project!.dirty)">
+        <span *ngIf="project!.errors?.['required']">{{'RequiredField'|translate}}</span>
+      </div>
+      <p class="error-message" *ngIf="!project!.errors?.['required'] && projectExistError">{{'ExistProjectError'|translate}}
+      </p>
+    </div>
+
+    <button type="submit" class="submit-button">{{'SaveTask'|translate}}</button>
+  </form>
+</div>

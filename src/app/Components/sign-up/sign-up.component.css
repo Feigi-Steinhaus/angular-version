@@ -1,0 +1,44 @@
+
+.signUp-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+  
+  .signUp-container form div {
+    margin-bottom: 15px;
+  }
+  
+  .signUp-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .signUp-container input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .signUp-container button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .signUp-container button:hover {
+    background: #0056b3;
+  }
+  
+  .signUp-container div span {
+    color: red;
+    font-size: 12px;
+  }
+  

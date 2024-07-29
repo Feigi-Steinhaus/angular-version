@@ -1,0 +1,82 @@
+<form class="editCustomer" className="editCustomer" id="editCustomerForm" [formGroup]="customerForm" (ngSubmit)="editCustomerSubmit()">
+    <div class="form-group">
+        <div class="form-group">
+            <label for="firstName">שם פרטי</label>
+            <input type="text" formControlName="firstName" required placeholder="שם פרטי" />
+            <div *ngIf="submitted && customerForm.controls['firstName'].errors">
+                <span *ngIf="customerForm.controls['firstName'].errors['required']">firstName is
+                    required.</span>
+                <span *ngIf="customerForm.controls['firstName'].errors['firstName']">Invalid firstName
+                    format.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">שם משפחה</label>
+            <input type="text" formControlName="lastName" required placeholder="שם משפחה" />
+            <div *ngIf="submitted && customerForm.controls['lastName'].errors">
+                <span *ngIf="customerForm.controls['lastName'].errors['required']">lastName is required.</span>
+                <span *ngIf="customerForm.controls['lastName'].errors['lastName']">Invalid lastName
+                    format.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">פלאפון</label>
+            <input type="text" formControlName="phone" required placeholder="פלאפון" />
+            <div *ngIf="submitted && customerForm.controls['phone'].errors">
+                <span *ngIf="customerForm.controls['phone'].errors['required']">phone is required.</span>
+                <span *ngIf="customerForm.controls['phone'].errors['phone']">Invalid phone format.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">כתובת מייל</label>
+            <input type="email" formControlName="email" required placeholder="כתובת מייל" />
+            <div *ngIf="submitted && customerForm.controls['email'].errors">
+                <span *ngIf="customerForm.controls['email'].errors['required']">email is required.</span>
+                <span *ngIf="customerForm.controls['email'].errors['email']">Invalid email format.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="businessName">שם העסק</label>
+            <input type="text" formControlName="businessName" required placeholder="שם העסק" />
+            <div *ngIf="submitted && customerForm.controls['businessName'].errors">
+                <span *ngIf="customerForm.controls['businessName'].errors['required']">businessName is
+                    required.</span>
+                <span *ngIf="customerForm.controls['businessName'].errors['businessName']">Invalid businessName
+                    format.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="source">Source:</label>
+            <input type="text" formControlName="source" required placeholder="מקור" />
+            <div *ngIf="submitted && customerForm.controls['source'].errors">
+                <span *ngIf="customerForm.controls['source'].errors['required']">source is required.</span>
+                <span *ngIf="customerForm.controls['source'].errors['source']">Invalid source format.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="status">סטטוס</label>
+            <select formControlName="status" class="form-control" (change)="selectItem($event)">
+                <option *ngFor="let statusCode of statusCodeUser " [value]="statusCode.id">
+                    {{ statusCode.description }}
+                </option>
+            </select>
+            <div *ngIf="submitted && customerForm.controls['status'].errors">
+                <span *ngIf="customerForm.controls['status'].errors['required']">status is required.</span>
+                <span *ngIf="customerForm.controls['status'].errors['status']">Invalid status format.</span>
+            </div>
+        </div>
+        
+
+        <div class="form-group">
+            <label for="createdDate">תאריך</label>
+            <input type="date" formControlName="createdDate" required placeholder="תאריך" />
+            <div *ngIf="submitted && customerForm.controls['createdDate'].errors">
+                <span *ngIf="customerForm.controls['createdDate'].errors['required']">createdDate is
+                    required.</span>
+                <span *ngIf="customerForm.controls['createdDate'].errors['createdDate']">Invalid createdDate
+                    format.</span>
+            </div>
+        </div>
+        <button  id="editCustomerSubmitBtn" (click)="editCustomerSubmit()">לאישור</button>
+    </div>
+</form>

@@ -1,0 +1,11 @@
+<app-generic-bourd [data]="tasks" [loading]="loading"
+    [globalFilterFields]="['title', 'description', 'priority.description', 'status.description','dueDate','project.name','assignedTo.firstName','assignedTo.firstName']"
+    [col$types]="{'title':'text','description':'text','status':'position','priority':'position','dueDate':'date','assignedTo':'obj','project':'obj','createdDate':'date'}"
+    [positionData]="[statuses,priorities]" 
+    [objData]="[users,projects]" 
+    [objFields]="['email','name']" 
+    (edit)="onEditTask($event)" 
+    (delete)="onDeleteTask($event)" 
+    (showAddComponent)="addTask()">
+</app-generic-bourd>
+<div #popupContainer></div>

@@ -1,0 +1,16 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    // שינוי שלי השורה הבאה לסנכרון עם יומן גוגל
+    "types": ["gapi", "gapi.auth2", "gapi.client.calendar"]
+  },
+  "files": [
+    "src/main.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}
+// {"compilerOptions": {"target": "es5","module": "commonjs","strict": true,"esModuleInterop": true,"skipLibCheck": true,"forceConsistentCasingInFileNames": true,// אפשרויות נוספות}}

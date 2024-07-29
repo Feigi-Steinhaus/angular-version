@@ -1,0 +1,57 @@
+.add-task-form {
+  font-size: 18px;
+  max-width: 600px;
+  margin: auto;
+  padding: 15px;
+  align-items: center;
+}
+
+.line {
+ background-color: #5CFFAC;
+  width: 60%;
+  height: 10px;
+  margin: 0 auto; 
+}
+
+.add-task-form h1 {
+  color: #000000;
+  text-align: center;
+}
+
+.input-style {
+  border-color: #5CFFAC;
+}
+
+.card label {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.card{
+  margin:5px
+}
+
+button.submit-button {
+  font-size: 20px;
+  background-color: #5CFFAC;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 80%;
+}
+
+button.submit-button:hover {
+  background-color: #81f9c5;
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.input-field{
+  width: 80%;
+}

@@ -1,0 +1,15 @@
+<app-generic-bourd 
+[data]="projects" 
+[loading]="loading"
+[globalFilterFields]="['name','createdDate', 'status.description']"
+[col$types]="{'name':'text','description':'text','status':'position','startDate':'date','endDate':'date','customerId':'obj','createdDate':'date'}"
+[positionData]="[statuses]"
+[objData]="[customers]"
+[objFields]="['firstName']"
+[popTable]="true"
+(edit)="onEditProject($event)"
+(delete)="onDeleteProject($event)"
+(dataUpdated)="filterData($event)"
+(showAddComponent)="addProject()">
+</app-generic-bourd>
+<div #popupContainer></div>

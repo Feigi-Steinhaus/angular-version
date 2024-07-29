@@ -1,0 +1,37 @@
+.file-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .document-file {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-left: 400px;
+    margin-right: 20px;
+    margin-top: 20px;
+  }
+  .document-file:hover {
+    background-color: #0056b3;
+  }
+  .file-item {
+    margin: 10px;
+    text-align: center;
+  }
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* ensures the image covers the area without distorting */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    cursor: pointer; /* סמן עכבר של לחיצה */
+  }
+  

@@ -1,0 +1,22 @@
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-wide w3-padding w3-card w3-flex-container">
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white"
+            title="My Account">
+            <img src="../../../assets/images/profile.png" class="w3-circle" style="height:40px;width:40px" alt="Avatar">
+        </a>
+        <div>
+            <a (click)="switchLanguage('en')" class="w3-bar-item w3-button">English</a>
+            <a (click)="switchLanguage('he')" class="w3-bar-item w3-button">עברית</a>
+        </div>
+        <div class="w3-center w3-flex-items">
+            <a routerLink="/project" class="w3-bar-item w3-button">{{'Projects' | translate}}</a>
+            <a routerLink="/leads" class="w3-bar-item w3-button">{{'Leads' | translate}}</a>
+            <a routerLink="/task" class="w3-bar-item w3-button">{{'Tasks' | translate}}</a>
+            <a routerLink="/customer" class="w3-bar-item w3-button">{{'Customers' | translate}}</a>
+            <a routerLink="/worker" class="w3-bar-item w3-button">{{'Users' | translate}}</a>
+        </div>
+        <div class="w3-logo-container">
+            <img src="../../../assets/images/logo.jpeg" class="w3-bar-item w3-logo" title="Copy Right">
+        </div>
+    </div>
+</div>

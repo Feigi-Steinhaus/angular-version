@@ -1,0 +1,120 @@
+button {
+    background-color: #51f9a3; /* Darker mint green */
+    border: none;
+    color: #fff;
+    margin: 10px;
+}
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+.table-header .p-input-icon-left {
+    flex-grow: 1;
+}
+
+.p-column-title {
+    font-weight: bold;
+    /* color: #333;
+    background-color: #f0f0f0; */
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #ddd;
+}
+
+p-table {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+p-table thead {
+    background-color: #484848;
+    color: #fff;
+}
+
+p-table thead th {
+    padding: 10px;
+}
+
+p-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+p-table tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+.item-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.item {
+    border: 1px solid #616060;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: calc(33.333% - 20px); /* Adjust to control the width of the items */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.item-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    color: #333; /* Text color */
+}
+
+.item-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-right: 5px;
+}
+
+.item-value {
+    color: #3d3d3d;
+    font-size: 1em;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    color: #fff;
+    gap: 10px; /* Adds space between the buttons */
+}
+
+.button-group button {
+    border-radius: 5px;
+}
+
+.p-button-secondary {
+    background-color: #5CFFAC; /* Darker mint green */
+    border: none;
+    color: #fff;
+}
+
+.p-button-danger {
+    background-color: #5d5d5dad; /* Red */
+    border: none;
+    color: #fff;
+}
+
+.p-button-help {
+    background-color: #696969; /* Blue */
+    border: none;
+    color: #fff;
+}

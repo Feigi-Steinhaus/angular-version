@@ -1,0 +1,14 @@
+<div class="file-list">
+    <h3 class=document-file >רשימת קבצים בדרייב</h3>
+    <div class="file-grid">
+      <div *ngFor="let file of files" class="file-item">
+        <img 
+          [src]="file.thumbnailLink || 'path/to/default/thumbnail.png'" 
+          alt="{{ file.name }}" 
+          class="thumbnail"
+          (click)="openImagePopup(file.thumbnailLink || 'path/to/default/thumbnail.png', file.webViewLink)"
+        />
+        <div>{{ file.name }}</div>
+      </div>
+    </div>
+  </div>

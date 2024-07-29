@@ -1,0 +1,18 @@
+<div class="auth-container">
+  <h1 mat-dialog-title>{{'VerifyAccountTitle'|translate}}</h1>
+  <div mat-dialog-content>
+    <p>{{'VerifyAccountLabel'|translate}}</p>
+    <div class="code-inputs">
+      <input matInput [(ngModel)]="code[0]" maxlength="1" (input)="focusNext($event, 1)" (keydown)="focusPrevious($event, 0)" #input0 />
+      <input matInput [(ngModel)]="code[1]" maxlength="1" (input)="focusNext($event, 2)" (keydown)="focusPrevious($event, 1)" #input1 />
+      <input matInput [(ngModel)]="code[2]" maxlength="1" (input)="focusNext($event, 3)" (keydown)="focusPrevious($event, 2)" #input2 />
+      <input matInput [(ngModel)]="code[3]" maxlength="1" (input)="focusNext($event, 4)" (keydown)="focusPrevious($event, 3)" #input3 />
+      <input matInput [(ngModel)]="code[4]" maxlength="1" (input)="focusNext($event, 5)" (keydown)="focusPrevious($event, 4)" #input4 />
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">{{'Cancle'|translate}}</button>
+    <button mat-button (click)="validateCode()">{{'Approve'|translate}}</button>
+  </div>
+</div>

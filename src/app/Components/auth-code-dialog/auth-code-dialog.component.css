@@ -1,0 +1,25 @@
+.code-inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.code-inputs input {
+  width: 40px;
+  text-align: center;
+  font-size: 24px;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+  margin: 0 4px;
+  padding: 8px 0;
+}
+
+.code-inputs input:focus {
+  border-bottom: 2px solid #3f51b5;
+}
+
+.auth-container {
+  width: auto;
+  text-align: center;
+}

@@ -1,0 +1,84 @@
+<div *ngIf="flag" class="edit-container">
+    <form [formGroup]="editForm" (ngSubmit)="toEnter()">
+
+        <div>
+            <label for="firstName">first Name</label>
+            <input id="firstName" formControlName="firstName" type="text" />
+            <div *ngIf="submitted && editForm.controls['firstName'].errors">
+                <span *ngIf="editForm.controls['firstName'].errors['required']">firstName is required.</span>
+                <span *ngIf="editForm.controls['firstName'].errors['firstName']">Invalid firstName format.</span>
+            </div>
+        </div>
+
+        <div>
+            <label for="lastName">last Name</label>
+            <input id="lastName" formControlName="lastName" type="text" />
+            <div *ngIf="submitted && editForm.controls['lastName'].errors">
+                <span *ngIf="editForm.controls['lastName'].errors['required']">lastName is required.</span>
+                <span *ngIf="editForm.controls['lastName'].errors['lastName']">Invalid lastName format.</span>
+            </div>
+        </div>
+
+        <div>
+            <label for="phone">phone</label>
+            <input id="phone" formControlName="phone" type="text" />
+            <div *ngIf="submitted && editForm.controls['phone'].errors">
+                <span *ngIf="editForm.controls['phone'].errors['required']">phone is required.</span>
+                <span *ngIf="editForm.controls['phone'].errors['phone']">Invalid phone format.</span>
+            </div>
+        </div>
+
+        <div>
+            <label for="email">email</label>
+            <input id="email" formControlName="email" type="text" />
+            <div *ngIf="submitted && editForm.controls['email'].errors">
+                <span *ngIf="editForm.controls['email'].errors['required']">email is required.</span>
+                <span *ngIf="editForm.controls['email'].errors['email']">Invalid email format.</span>
+            </div>
+        </div>
+
+        <div>
+            <label for="source">source</label>
+            <input id="source" formControlName="source" type="text" />
+            <div *ngIf="submitted && editForm.controls['source'].errors">
+                <span *ngIf="editForm.controls['source'].errors['required']">source is required.</span>
+                <span *ngIf="editForm.controls['source'].errors['source']">Invalid source format.</span>
+            </div>
+        </div>
+
+        <div>
+            <label for="lastContactedDate">last contacted date</label>
+            <input id="lastContactedDate" formControlName="lastContactedDate" type="date" />
+            <div *ngIf="submitted && editForm.controls['lastContactedDate'].errors">
+                <span *ngIf="editForm.controls['lastContactedDate'].errors['required']">last contacted date is
+                    required.</span>
+                <span *ngIf="editForm.get('lastContactedDate')!.errors?.['notFutureDate']"> התאריך חייב להיות
+                    עתידי</span>
+                <span *ngIf="editForm.controls['lastContactedDate'].errors['lastContactedDate']">Invalid last
+                    contacted date format.</span>
+            </div>
+        </div>
+
+        <div>
+            <label for="businessName">business name</label>
+            <input id="businessName" formControlName="businessName" type="text" />
+            <div *ngIf="submitted && editForm.controls['businessName'].errors">
+                <span *ngIf="editForm.controls['businessName'].errors['required']">business name is required.</span>
+                <span *ngIf="editForm.controls['businessName'].errors['businessName']">Invalid business name
+                    format.</span>
+            </div>
+        </div>
+
+        <div>
+            <label for="notes">notes</label>
+            <input id="notes" formControlName="notes" type="text" />
+            <div *ngIf="submitted && editForm.controls['notes'].errors">
+                <span *ngIf="editForm.controls['notes'].errors['required']">notes is required.</span>
+                <span *ngIf="editForm.controls['notes'].errors['notes']">Invalid notes format.</span>
+            </div>
+        </div>
+
+        <button mat-raised-button type="submit">send</button>
+    </form>
+</div>
+

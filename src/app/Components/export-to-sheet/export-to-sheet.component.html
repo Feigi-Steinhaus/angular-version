@@ -1,0 +1,50 @@
+
+<form id="form" #form="ngForm">
+    <h2>בחר אפשרות</h2>
+    <div>
+      <input type="radio" id="newDoc" name="radioOption" value="newDoc" (change)="onRadioChange($event)" [(ngModel)]="formValues.selectedOption" [ngModelOptions]="{standalone: true}" required>
+      <label for="newDoc">דף חדש</label><br>
+      <input type="radio" id="existingDoc" name="radioOption" value="existingDoc" (change)="onRadioChange($event)" [(ngModel)]="formValues.selectedOption" [ngModelOptions]="{standalone: true}" required>
+      <label for="existingDoc">מסמך קיים</label>
+    </div>
+  
+    <div *ngIf="formValues.selectedOption === 'newDoc'">
+      <input type="text" [(ngModel)]="formValues.fileName" name="fileName" placeholder="הכנס שם לקובץ" required >
+    </div>
+  
+    <div *ngIf="formValues.selectedOption === 'existingDoc'">
+      <select [(ngModel)]="formValues.selectedFile" name="selectedFile" required>
+        <option value="" disabled selected>בחר מסמך</option>
+        <option *ngFor="let file of existingFiles" [value]="file.id" >{{file.name}}</option>
+      </select>
+      <div>
+        <input type="radio" id="newSheet" name="sheetOption" value="newSheet" (change)="onSheetOptionChange($event)" [(ngModel)]="formValues.selectedSheetOption" [ngModelOptions]="{standalone: true}">
+        <label for="newSheet">גליון חדש</label><br>
+        <input type="radio" id="existingSheet" name="sheetOption" value="existingSheet" (change)="onSheetOptionChange($event)" [(ngModel)]="formValues.selectedSheetOption" [ngModelOptions]="{standalone: true}">
+        <label for="existingSheet">גליון קיים</label>
+      </div>
+  
+      <div *ngIf="formValues.selectedSheetOption === 'newSheet'">
+        <input type="text" [(ngModel)]="formValues.sheetName" name="sheetName" placeholder="הכנס שם גליון">
+      </div>
+  
+      <!-- <div *ngIf="formValues.selectedSheetOption === 'existingSheet'">
+        <select [(ngModel)]="formValues.selectedSheet" name="selectedSheet">
+          <option value="" disabled selected>בחר גליון</option>
+          <option *ngFor="let sheet of existingSheets" [value]="sheet">{{sheet.name}}</option>
+        </select>
+      </div> -->
+    </div>
+    <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="!this.form.valid"
+    [hidden]="this.formValues.selectedOption==undefined || this.formValues.selectedOption==''"
+    (click)="onSubmit()"
+  >
+    ייצוא
+  </button>
+   
+  </form>
+  

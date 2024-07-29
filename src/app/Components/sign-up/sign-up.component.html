@@ -1,0 +1,56 @@
+<div class="signUp-container">
+    <form [formGroup]="signUpForm" (ngSubmit)="toEnter()">
+
+        <div>
+            <label for="firstName">first Name</label>
+            <input id="firstName" formControlName="firstName" type="text" />
+            <div *ngIf="submitted && signUpForm.controls['firstName'].errors">
+                <span *ngIf="signUpForm.controls['firstName'].errors['required']">firstName is required.</span>
+                <span *ngIf="signUpForm.controls['firstName'].errors['firstName']">Invalid firstName format.</span>
+            </div>
+        </div>
+
+        <div>
+            <label for="lastName">last Name</label>
+            <input id="lastName" formControlName="lastName" type="text" />
+            <div *ngIf="submitted && signUpForm.controls['lastName'].errors">
+                <span *ngIf="signUpForm.controls['lastName'].errors['required']">lastName is required.</span>
+                <span *ngIf="signUpForm.controls['lastName'].errors['lastName']">Invalid lastName format.</span>
+            </div>
+        </div>
+
+        <div>
+            <label for="email">email</label>
+            <input id="email" formControlName="email" type="text" />
+            <div *ngIf="submitted && signUpForm.controls['email'].errors">
+                <span *ngIf="signUpForm.controls['email'].errors['required']">email is required.</span>
+                <span *ngIf="signUpForm.controls['email'].errors['email']">Invalid email format.</span>
+            </div>
+        </div>
+
+
+        <div> <label for="password">Password</label> <input id="password" formControlName="password"
+                [(ngModel)]="userDetails.password" type="password" />
+            <div *ngIf="submitted && signUpForm.controls['password'].errors"> <span
+                    *ngIf="signUpForm.controls['password'].errors['required']">Password is required.</span> </div>
+            <!-- Add hint next to password input --> <mat-hint
+                *ngIf="submitted && signUpForm.controls['password'].errors" style="color: red;">Password must contain at
+                least 8 characters with a number and a lowercase letter.</mat-hint>
+        </div>
+
+        <div>
+            <label for="ConfirmPassword">Confirm Password</label>
+            <input id="ConfirmPassword" formControlName="ConfirmPassword" [(ngModel)]="userDetails.password2"
+                type="password" (ngModelChange)="validatePasswords()" />
+            <div *ngIf="submitted && signUpForm.controls['ConfirmPassword'].errors">
+                <span *ngIf="signUpForm.controls['ConfirmPassword'].errors['required']">Password is required.</span>
+                <span *ngIf="signUpForm.controls['ConfirmPassword'].errors['email']">Invalid Password format.</span>
+            </div>
+            <mat-hint *ngIf="!passwordsMatch && userDetails.password !== '' && userDetails.password2 !== ''" align="end"
+                style="color: red;">Passwords do not match.</mat-hint>
+        </div>
+
+        <button mat-raised-button type="submit" [disabled]="!passwordsMatch">send</button>
+    </form>
+    <app-google [userData]="userData"></app-google>
+</div>
