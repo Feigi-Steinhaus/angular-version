@@ -1,13 +1,11 @@
 <div class="w3-top">
     <div class="w3-bar w3-white w3-wide w3-padding w3-flex-container">
         <div class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
-            <img src="../../../assets/images/profile.png" class="w3-circle" style="height:40px;width:40px" alt="Avatar">
-
-            <!-- <img src="../../../assets/images/profile.png" class="w3-circle" style="height:40px;width:40px" alt="Avatar"[matMenuTriggerFor]="menu"> -->
+            <img src="../../../assets/images/profile.png" class="w3-circle" style="height:40px;width:40px" alt="Avatar"[matMenuTriggerFor]="menu">
         </div>         
-          <!-- <mat-menu #menu="matMenu"> -->
+          <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="updateDetails()">לעדכון פרטים</button>
-          <!-- </mat-menu> -->
+          </mat-menu>
         <div>
             <a (click)="switchLanguage('en')" class="w3-bar-item w3-button">English</a>
             <a (click)="switchLanguage('he')" class="w3-bar-item w3-button">עברית</a>
