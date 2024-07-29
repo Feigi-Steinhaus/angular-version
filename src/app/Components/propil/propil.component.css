@@ -1,0 +1,99 @@
+.responses {
+    margin-top: 10px;
+  }
+  
+  .response-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #d9f2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .message-header {
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    color: #999;
+  }
+  
+  .response-input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  
+  .text-base-color{
+    color: #5CFFAC;
+  }
+  /* #con{
+    direction: rtl;
+  } */
+  
+  .custom-button {
+    background-color: white !important;
+    border-bottom: 2px solid transparent !important;
+    margin-right: 1.5rem !important; 
+    transition: border-color 0.3s ease !important;
+  }
+  
+  .custom-button:hover {
+    border-color: #5CFFAC !important;
+  }
+  
+  .response-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .send-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #5CFFAC;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .send-button:hover {
+    background-color: #5CFFAC;
+  }
+  
+  .delete-icon {
+    float: right;  /* Position to the right */
+    cursor: pointer;  /* Change cursor on hover */
+    text-decoration: none;
+    /* Style for visited link */
+    &.visited {
+        text-decoration: none; /* Remove underline */
+    }
+  
+    /* Style for normal link */
+    &.unvisited {
+        text-decoration: none; /* Remove underline */
+    }
+  }
+  
+  .message-date{
+    font-size: 12px;
+    color: #5CFFAC;
+  }
+  
+  .bodyOfCommunication{
+    font-size: 20px;
+  }
+  
+  .p-button-danger {
+    background-color:transparent; 
+    border: none;
+    color: #0c0101;
+  }
+  
+  .p-button-danger:hover {
+    background-color:rgb(229, 226, 226); 
+  }
+  

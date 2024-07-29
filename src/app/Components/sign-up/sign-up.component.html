@@ -1,56 +1,79 @@
 <div class="signUp-container">
-    <form [formGroup]="signUpForm" (ngSubmit)="toEnter()">
-
-        <div>
-            <label for="firstName">first Name</label>
-            <input id="firstName" formControlName="firstName" type="text" />
-            <div *ngIf="submitted && signUpForm.controls['firstName'].errors">
-                <span *ngIf="signUpForm.controls['firstName'].errors['required']">firstName is required.</span>
-                <span *ngIf="signUpForm.controls['firstName'].errors['firstName']">Invalid firstName format.</span>
-            </div>
+    <div class="signUp-form">
+        <div class="signUp-image">
+            <img src="../../../assets/images/login bac.png" alt="Login Background">
         </div>
+        <div class="signUp-inputs">
+            <form [formGroup]="signUpForm" (ngSubmit)="toEnter()">
+                <h1>{{'SignUp' | translate}}</h1>
 
-        <div>
-            <label for="lastName">last Name</label>
-            <input id="lastName" formControlName="lastName" type="text" />
-            <div *ngIf="submitted && signUpForm.controls['lastName'].errors">
-                <span *ngIf="signUpForm.controls['lastName'].errors['required']">lastName is required.</span>
-                <span *ngIf="signUpForm.controls['lastName'].errors['lastName']">Invalid lastName format.</span>
-            </div>
+                <div class="card flex justify-content-center">
+                    <input id="firstName" formControlName="firstName" type="text" id="title" pInputText
+                        class="input-field" placeholder="{{'First Name' | translate}}" />
+                    <div *ngIf="submitted && signUpForm.get('firstName')?.hasError('required')" style="color: red;">
+                        {{'FirstNameRequired' | translate}}
+                    </div>
+                    <div *ngIf="submitted && signUpForm.get('firstName')?.hasError('firstName')" style="color: red;">
+                        {{'InvalidFirstNameFormat' | translate}}
+                    </div>
+                </div>
+
+                <div class="card flex justify-content-center">
+                    <input id="lastName" formControlName="lastName" type="text" id="title" pInputText
+                        class="input-field" placeholder="{{'Last Name' | translate}}" />
+                    <div *ngIf="submitted && signUpForm.get('lastName')?.hasError('required')" style="color: red;">
+                        {{'LastNameRequired' | translate}}
+                    </div>
+                    <div *ngIf="submitted && signUpForm.get('lastName')?.hasError('lastName')" style="color: red;">
+                        {{'InvalidLastNameFormat' | translate}}
+                    </div>
+                </div>
+
+                <div class="card flex justify-content-center">
+                    <input id="email" formControlName="email" type="text" id="title" pInputText class="input-field"
+                        placeholder="{{'Email' | translate}}" />
+                    <div *ngIf="submitted && signUpForm.get('email')?.hasError('required')" style="color: red;">
+                        {{'EmailRequired' | translate}}
+                    </div>
+                    <div *ngIf="submitted && signUpForm.get('email')?.hasError('email')" style="color: red;">
+                        {{'InvalidEmailFormat' | translate}}
+                    </div>
+                </div>
+
+                <div class="card flex justify-content-center">
+                    <input id="password" formControlName="password" [(ngModel)]="userDetails.password" type="password"
+                        id="title" pInputText class="input-field" placeholder="{{'Password' | translate}}" />
+                    <div *ngIf="submitted && signUpForm.get('password')?.hasError('required')" style="color: red;">
+                        {{'PasswordRequirements' | translate}}
+                    </div>
+                    <div *ngIf="submitted && signUpForm.get('password')?.errors && !signUpForm.get('password')?.hasError('required')"
+                        style="color: red;">
+                        {{'Password must contain at least 8 characters with a number and a lowercase letter.' |
+                        translate}}
+                    </div>
+                </div>
+
+                <div class="card flex justify-content-center">
+                    <input id="ConfirmPassword" formControlName="ConfirmPassword" [(ngModel)]="userDetails.password2"
+                        type="password" id="title" pInputText class="input-field"
+                        placeholder="{{'Confirm Password' | translate}}" (ngModelChange)="validatePasswords()" />
+                    <div *ngIf="submitted && signUpForm.controls['ConfirmPassword'].errors">
+                        <span *ngIf="signUpForm.controls['ConfirmPassword'].errors['required']" style="color: red;">
+                            {{'PasswordRequirements' | translate}}
+                        </span>
+                        <span *ngIf="signUpForm.controls['ConfirmPassword'].errors['email']" style="color: red;">
+                            {{'InvalidEmailFormat' | translate}}
+                        </span>
+                    </div>
+                    <mat-hint *ngIf="!passwordsMatch && userDetails.password !== '' && userDetails.password2 !== ''"
+                        align="end" style="color: red;">
+                        {{'Passwords do not match.' | translate}}
+                    </mat-hint>
+                </div>
+
+                <button type="submit" [disabled]="!passwordsMatch" class="submit-button">{{'Send' | translate}}</button>
+            </form>
+            <app-google [userData]="userData"></app-google>
         </div>
-
-        <div>
-            <label for="email">email</label>
-            <input id="email" formControlName="email" type="text" />
-            <div *ngIf="submitted && signUpForm.controls['email'].errors">
-                <span *ngIf="signUpForm.controls['email'].errors['required']">email is required.</span>
-                <span *ngIf="signUpForm.controls['email'].errors['email']">Invalid email format.</span>
-            </div>
-        </div>
-
-
-        <div> <label for="password">Password</label> <input id="password" formControlName="password"
-                [(ngModel)]="userDetails.password" type="password" />
-            <div *ngIf="submitted && signUpForm.controls['password'].errors"> <span
-                    *ngIf="signUpForm.controls['password'].errors['required']">Password is required.</span> </div>
-            <!-- Add hint next to password input --> <mat-hint
-                *ngIf="submitted && signUpForm.controls['password'].errors" style="color: red;">Password must contain at
-                least 8 characters with a number and a lowercase letter.</mat-hint>
-        </div>
-
-        <div>
-            <label for="ConfirmPassword">Confirm Password</label>
-            <input id="ConfirmPassword" formControlName="ConfirmPassword" [(ngModel)]="userDetails.password2"
-                type="password" (ngModelChange)="validatePasswords()" />
-            <div *ngIf="submitted && signUpForm.controls['ConfirmPassword'].errors">
-                <span *ngIf="signUpForm.controls['ConfirmPassword'].errors['required']">Password is required.</span>
-                <span *ngIf="signUpForm.controls['ConfirmPassword'].errors['email']">Invalid Password format.</span>
-            </div>
-            <mat-hint *ngIf="!passwordsMatch && userDetails.password !== '' && userDetails.password2 !== ''" align="end"
-                style="color: red;">Passwords do not match.</mat-hint>
-        </div>
-
-        <button mat-raised-button type="submit" [disabled]="!passwordsMatch">send</button>
-    </form>
-    <app-google [userData]="userData"></app-google>
+    </div>
 </div>

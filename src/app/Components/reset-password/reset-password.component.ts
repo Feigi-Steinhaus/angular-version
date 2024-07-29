@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import Swal from 'sweetalert2';
 import { ResetPasswordService } from '@app/Services/reset-password.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-reset-password',
@@ -19,7 +20,7 @@ import { ResetPasswordService } from '@app/Services/reset-password.service';
   styleUrls: ['./reset-password.component.css'],
 })
 export class ResetPasswordComponent implements OnInit {
-  constructor(private route: Router, private userService: UserService, private dialog: MatDialog, private resetPasswordService: ResetPasswordService) { }
+  constructor(private spinner:NgxSpinnerService,private route: Router, private userService: UserService, private dialog: MatDialog, private resetPasswordService: ResetPasswordService) { }
 
   ngOnInit(): void {
     this.resetForm = new FormGroup({
@@ -61,9 +62,11 @@ export class ResetPasswordComponent implements OnInit {
     if (this.resetForm.valid) {
       const password = this.pass.value;
       const email = this.resetPasswordService.getUserEmail()
+      this.spinner.show()
       this.userService.savePassword(email!, password).subscribe(
         (res) => {
           if (res === true) {
+            this.spinner.hide()
             Swal.fire({
               title: "סיסמתך עודכנה בהצלחה",
               text: "הנך מועבר להתחברות מחדש",
@@ -85,6 +88,7 @@ export class ResetPasswordComponent implements OnInit {
             confirmButtonColor: "#d33",
             confirmButtonText: "סגור"
           })
+          this.spinner.hide()
           console.error('Error updating password:', error);
         }
       );

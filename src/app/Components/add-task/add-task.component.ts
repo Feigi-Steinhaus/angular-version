@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 import { GoogleAuthService } from '@app/Services/google-auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '@app/Services/language.service';
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
   query: string;
@@ -25,7 +26,13 @@ interface AutoCompleteCompleteEvent {
 export class AddTaskComponent implements OnInit {
   @Output() dataRefreshed: EventEmitter<void> = new EventEmitter<void>();
   data: any;
+  styles = {
+    'text-align': 'right', // ברירת מחדל עברית
+    'direction': 'rtl'     // ברירת מחדל עברית
+  };
   setData(data: any) {
+    console.log();
+
     if (data) {
       this.data = data;
       this.isEdit = true;
@@ -54,7 +61,8 @@ export class AddTaskComponent implements OnInit {
     private router: Router,
     private location: Location,
     private GoogleAuthService: GoogleAuthService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private languageService: LanguageService
   ) { }
   ngOnInit(): void {
     this.taskForm = this.fb.group({
@@ -111,6 +119,18 @@ export class AddTaskComponent implements OnInit {
         this.titlePage = "EditTaskTitle"
       }
     });
+
+    
+    this.languageService.language$.subscribe(lang => {
+      if (lang === 'he') {
+        this.styles['text-align'] = 'right';
+        this.styles['direction'] = 'rtl';
+      } else {
+        this.styles['text-align'] = 'left';
+        this.styles['direction'] = 'ltr';
+      }
+      })
+  
   }
   get title() { return this.taskForm.get('title') }
   get priority() { return this.taskForm.get('priority') }
@@ -119,7 +139,10 @@ export class AddTaskComponent implements OnInit {
   get dueDate() { return this.taskForm.get('dueDate') }
   get assignedTo() { return this.taskForm.get('assignedTo') }
   get project() { return this.taskForm.get('project') }
+
   futureDateValidator(control: AbstractControl): ValidationErrors | null {
+    if (this.isEdit)
+      return null;
     const selectedDate = new Date(control.value);
     const today = new Date();
     // today.setHours(0, 0, 0, 0);
@@ -138,7 +161,7 @@ export class AddTaskComponent implements OnInit {
   loadTask(taskId: number): void {
     this.taskService.getTaskById(taskId).subscribe(
       (task: any) => {
-        this.taskForm.patchValue({
+          this.taskForm.patchValue({
           taskId: task.taskId,
           googleId: task.googleId,
           createdDate: task.createdDate,

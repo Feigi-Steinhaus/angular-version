@@ -1,0 +1,37 @@
+<div class="mini-chat-container">
+    <div class="chat-message">
+      <div id="communi" class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden bg-white">
+        <div class="flex items-start justify-between">
+          <div class="text-lg font-medium tracking-tight leading-6 truncate">
+            <div class="message-date"> 
+              <span>{{ communication.date | date: 'short' }}</span>
+            </div>
+            <div class="message-body-body">
+              <h3 *ngIf="communication.relatedTo?.id==1">Customer: {{ communication.name }}</h3>
+              <h3 *ngIf="communication.relatedTo?.id==2">Lead: {{ communication.name }}</h3>
+            </div>
+          </div>
+          <div class="message-header">
+            <button pButton type="button" class="p-button-danger" icon="pi pi-trash" (click)="deleteMessage(communication)"></button>
+          </div>
+        </div>
+        <h3 class="bodyOfCommunication">{{ communication.details }}</h3>
+      </div>
+  
+  
+      <div class="responses">
+        <div *ngFor="let response of responses" class="response-message">
+          <div class="message-header">
+            <span class="message-date">{{ response.date | date: 'short' }}</span>
+            <button pButton type="button" class="p-button-danger" icon="pi pi-trash" (click)="deleteMessage(response)"></button>
+          </div>
+          <div class="message-body">
+            <p>{{ response.details }}</p>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+  

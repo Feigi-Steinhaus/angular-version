@@ -1,6 +1,7 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ResetPasswordService } from 'src/app/Services/reset-password.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auth-code-dialog',
@@ -26,7 +27,14 @@ export class AuthCodeDialogComponent {
     if (enteredCode === validCode?.toString()) {
       this.dialogRef.close(true);
     } else {
-      alert('קוד לא תקין, נסה שוב.');
+      Swal.fire({
+        text: "קוד לא תקין, נסה שוב",
+        icon: "error",
+        showCancelButton: false,
+        showCloseButton: true,
+        confirmButtonColor: "#d33",
+        confirmButtonText: "סגור"
+      })
     }
   }
 

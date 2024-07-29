@@ -1,28 +1,23 @@
 import { Injectable } from '@angular/core';
+import * as CryptoJS from 'crypto-js';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
   constructor() { }
-  private role: number | null = null;
-  login(role: number) {
-    this.role = role;
-    localStorage.setItem('role', role.toString());
-  }
-  logout() {
-    this.role = null;
-    localStorage.removeItem('role');
-  }
+
   getRole(): number | null {
-    if (!this.role) {
-      const storedRole = localStorage.getItem('role');
-      if (storedRole) {
-        this.role = parseInt(storedRole, 10);
-      }
-    }
-    return this.role;
+    const storedRole = localStorage.getItem('authData');
+    console.log("storedRole", storedRole);
+    const role = parseInt(this.decryptRole(storedRole!), 10)
+    console.log("role", role);
+    return role;
   }
-  isAuthenticated(): boolean {
-    return this.role !== null;
+
+  decryptRole(encryptedRole: string): string {
+    const decryptedBytes = CryptoJS.AES.decrypt(encryptedRole, 'encryptionKey');
+    return decryptedBytes.toString(CryptoJS.enc.Utf8);
   }
 }

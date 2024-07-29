@@ -4,6 +4,6 @@ export interface document {
     description?: string,
     filePath?: string,
     relatedTo?: string,
-    relatedId?: string
+    relatedId?: number
     createdDate?: Date
 }

@@ -1,129 +1,167 @@
-<p-toolbar styleClass="mb-4 gap-2">
-    <ng-template pTemplate="left">
-        <button pButton pRipple [label]="'NewItem'|translate"  icon="pi pi-plus" class="p-button-success mr-2"
-            (click)="openAddComponent()"></button>
-    </ng-template>
-    <ng-template pTemplate="right">
-        <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="spreadSheetsFromTableData(this.data)" class="p-button-success mr-2" [pTooltip]="'XslToolLip' | translate" tooltipPosition="bottom" id="spreadSheetBtn"></button>
-    </ng-template>
-</p-toolbar>
-
-<p-table #dt [value]="data" [loading]="loading" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-    [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [globalFilterFields]="globalFilterFields">
-    <ng-template pTemplate="caption">
-        <div class="table-header">
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="filterGlobal($event)" [placeholder]="'GlobalSearch' | translate" />
-            </span>
-            <button pButton type="button" (click)="toggleView()" >{{ 'ToggleView' | translate }}</button>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th *ngFor="let col of columns let i=index"
-                [pSortableColumn]="col.filterType=='position'||col.filterType=='obj' ?col.field+'.'+getobjFields(i,col.filterType!)  : col.field">
-                <div class="flex justify-content-between align-items-center">
-                    {{ col.header | translate}}
-                    <p-sortIcon *ngIf="col.sortable==true"
-                        [field]="col.filterType=='position'||col.filterType=='obj' ?col.field+'.'+getobjFields(i,col.filterType!)  : col.field"></p-sortIcon>
-                    <p-columnFilter *ngIf="col.filterType=='text'" type="text" [field]="col.field" display="menu"
-                        class="ml-auto"></p-columnFilter>
-                    <p-columnFilter *ngIf="col.filterType=='date'" type="date" [field]="col.field" display="menu"
-                        class="ml-auto"></p-columnFilter>
-                    <p-columnFilter *ngIf="col.filterType=='position'" [field]="col.field" matchMode="equals"
-                        display="menu" class="ml-auto">
-                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown optionLabel='description' [ngModel]="value" [options]="getPosData(i)"
-                                (onChange)="filter($event.value)" [placeholder]="'Any'|translate">
-                                <ng-template let-option pTemplate="item">
-                                    <p-tag [value]="option.description"
-                                        [severity]="getSeverity(option.description)"></p-tag>
-                                </ng-template>
-                            </p-dropdown>
-                        </ng-template>
-                    </p-columnFilter>
-                    <p-columnFilter *ngIf="col.filterType=='obj'" [field]="col.field" matchMode="in" display="menu"
-                        [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
-                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multiSelect [ngModel]="value" [options]="getObjData(i)" [placeholder]="'Any'|translate"
-                                (onChange)="filter($event.value)" [optionLabel]="getobjFields(i,'obj')">
-                                <ng-template let-option pTemplate="item">
-                                    <div class="inline-block vertical-align-middle">
-                                        <span class="ml-1 mt-1">{{ option[getobjFields(i,'obj')] }}</span>
-                                    </div>
-                                </ng-template>
-                            </p-multiSelect>
-                        </ng-template>
-                    </p-columnFilter>
-                </div>
-            </th>
-        </tr>
-    </ng-template>
-    <ng-container>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-            <tr *ngIf="getToggleView()">
-                <td *ngFor="let col of columns let i = index">
-                    <span class="p-column-title">{{rowData[col.field]}}</span>
-                    <p *ngIf="getTypeOfCol(col, rowIndex) == 'text'"> {{ rowData[col.field] }}</p>
-                    <p *ngIf="getTypeOfCol(col, rowIndex) == 'date'"> {{ rowData[col.field] | date: 'MM/dd/yyyy' }}</p>
-                    <span *ngIf="getTypeOfCol(col, rowIndex) == 'obj'" class="ml-1 vertical-align-middle">{{
-                        rowData[col.field][getobjFields(i,'obj')] }}</span>
-                    <p-tag *ngIf="getTypeOfCol(col, rowIndex) == 'position'" [value]="rowData[col.field].description"
-                        [severity]="getSeverity(rowData[col.field].description)"></p-tag>
-                    <button pButton type="button" class="p-button-secondary" icon="pi pi-pencil"
-                        *ngIf="getTypeOfCol(col, rowIndex) == 'edit'" (click)="onEdit(rowData)"></button>
-                    <button pButton type="button" class="p-button-danger" icon="pi pi-trash"
-                        *ngIf="getTypeOfCol(col, rowIndex) == 'delete'" (click)="onDelete(rowData)"></button>
-                    <button pButton type="button" class="p-button-Help" icon="pi pi-angle-down"
-                        *ngIf="getTypeOfCol(col, rowIndex) == 'popTable'"
-                        (click)="getDataForPopTable(rowData)"></button>
-                </td>
-            </tr>
-            <tr *ngIf="!getToggleView()">
-                <td [attr.colspan]="columns.length">
-                    <div class="p-grid"
-                        style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin-bottom: 10px;width: 150px;">
-                        <div class="p-col-12 p-md-4" *ngFor="let col of columns let i = index">
-                            <span class="p-column-title"
-                                style="font-weight: bold; font-size: 1.1em; margin-bottom: 5px; display: block;">
-                                {{ col.header |translate}}
-                            </span>
-                            <p *ngIf="getTypeOfCol(col, rowIndex) == 'text'" style="margin: 5px 0;">
-                                {{ rowData[col.field] }}
-                            </p>
-                            <p *ngIf="getTypeOfCol(col, rowIndex) == 'date'" style="margin: 5px 0;">
-                                {{ rowData[col.field] | date: 'MM/dd/yyyy' }}
-                            </p>
-                            <span *ngIf="getTypeOfCol(col, rowIndex) == 'obj'" class="ml-1 vertical-align-middle"
-                                style="margin: 5px 0; display: block;">
-                                {{ rowData[col.field][getobjFields(i,'')] }}
-                            </span>
-                            <p-tag *ngIf="getTypeOfCol(col, rowIndex) == 'position'"
-                                [value]="getPosition(rowData[col.field], i)"
-                                [severity]="getSeverity(rowData[col.field].description)"></p-tag>
-                            <div class="button-group">
-                                <button pButton type="button" class="p-button-secondary" icon="pi pi-pencil"
-                                    *ngIf="getTypeOfCol(col, rowIndex) == 'edit'" (click)="onEdit(rowData)"></button>
-                                <button pButton type="button" class="p-button-danger" icon="pi pi-trash"
-                                    *ngIf="getTypeOfCol(col, rowIndex) == 'delete'"
-                                    (click)="onDelete(rowData)"></button>
-                                <button pButton type="button" class="p-button-help" icon="pi pi-angle-down"
-                                    *ngIf="getTypeOfCol(col, rowIndex) == 'popTable'"
-                                    (click)="getDataForPopTable(rowData)"></button>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
+<div class="container">
+    <div class="header">
+      <p-toolbar>
+        <ng-template pTemplate="right">
+          <button pButton pRipple [label]="'NewItem' | translate" icon="pi pi-plus" class="p-button-success mr-2"
+            (click)="openAddComponent()" [pTooltip]="'NewItem' | translate"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="spreadSheetsFromTableData(this.data)"
+            class="p-button-success mr-2 header-btn" [pTooltip]="'XslToolLip' | translate" tooltipPosition="bottom"
+            id="spreadSheetBtn"></button>
+          <button class="p-button-success mr-2 header-btn" pButton type="button" (click)="toggleView()" icon="pi pi-list"
+            [pTooltip]="'ToggleView' | translate"></button>
         </ng-template>
-    </ng-container>
-    <ng-template pTemplate="emptymessage">
-        <tr>
-            <td [attr.colspan]="columns.length">{{'NoRecordsFound'|translate}}</td>
-        </tr>
-    </ng-template>
-</p-table>
-<div #popupContainer></div>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="filterGlobal($event)" [placeholder]="'GlobalSearch' | translate" />
+        </span>
+      </p-toolbar>
+      <div [style.direction]="textDirection">
+        <!-- תצוגת טבלה -->
+        <p-table *ngIf="getToggleView()" #dt [value]="data" [loading]="loading" [paginator]="true" [rows]="10"
+          [rowsPerPageOptions]="[10, 25, 50]" [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [globalFilterFields]="globalFilterFields">
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let col of columns; let i = index" [pSortableColumn]="
+                  col.filterType == 'position' || col.filterType == 'obj'
+                    ? col.field + '.' + getobjFields(i, col.filterType!)
+                    : col.field
+                ">
+                <div class="flex justify-content-between align-items-center">
+                  {{ col.header | translate }}
+                  <p-sortIcon *ngIf="col.sortable == true" [field]="
+                      col.filterType == 'position' || col.filterType == 'obj'
+                        ? col.field + '.' + getobjFields(i, col.filterType!)
+                        : col.field
+                    "></p-sortIcon>
+                  <p-columnFilter *ngIf="col.filterType == 'text'" type="text" [field]="col.field" display="menu"
+                    class="ml-auto"></p-columnFilter>
+                  <p-columnFilter *ngIf="col.filterType == 'date'" type="date" [field]="col.field" display="menu"
+                    class="ml-auto"></p-columnFilter>
+                  <p-columnFilter *ngIf="col.filterType == 'position'" [field]="col.field" matchMode="equals"
+                    display="menu" class="ml-auto">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-dropdown optionLabel="description" [ngModel]="value" [options]="getPosData(i)"
+                        (onChange)="filter($event.value)" [placeholder]="'Any' | translate">
+                        <ng-template let-option pTemplate="item">
+                          <p-tag [value]="option.description" [severity]="getSeverity(option.description)"></p-tag>
+                        </ng-template>
+                      </p-dropdown>
+                    </ng-template>
+                  </p-columnFilter>
+                  <p-columnFilter *ngIf="col.filterType == 'obj'" [field]="col.field" matchMode="in" display="menu"
+                    [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-multiSelect [ngModel]="value" [options]="getObjData(i)" [placeholder]="'Any' | translate"
+                        (onChange)="filter($event.value)" [optionLabel]="getobjFields(i, 'obj')">
+                        <ng-template let-option pTemplate="item">
+                          <div class="inline-block vertical-align-middle">
+                            <span class="ml-1 mt-1">{{
+                              option[getobjFields(i, "obj")]
+                              }}</span>
+                          </div>
+                        </ng-template>
+                      </p-multiSelect>
+                    </ng-template>
+                  </p-columnFilter>
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-container>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+              <tr class="p-selectable-row">
+                <td *ngFor="let col of columns; let i = index">
+                  <span class="p-column-title">{{ rowData[col.field] }}</span>
+                  <p *ngIf="getTypeOfCol(col, rowIndex) == 'text'">
+                    {{ rowData[col.field] }}
+                  </p>
+                  <p *ngIf="getTypeOfCol(col, rowIndex) == 'date'">
+                    {{ rowData[col.field] | date : "dd/MM/yyyy" }}
+                  </p>
+                  <span *ngIf="getTypeOfCol(col, rowIndex) == 'obj'" class="ml-1 vertical-align-middle">{{
+                    rowData[col.field][getobjFields(i, "obj")] }}</span>
+                  <p-tag *ngIf="getTypeOfCol(col, rowIndex) == 'position'" [value]="rowData[col.field].description"
+                    [severity]="getSeverity(rowData[col.field].description)"></p-tag>
+                    <div *ngIf="edit.observers.length > 0">
+                  <button  pButton type="button" class="p-button-secondary" icon="pi pi-pencil"
+                    *ngIf="getTypeOfCol(col, rowIndex) == 'edit'" (click)="onEdit(rowData)"></button></div>
+                  <div *ngIf="addDocument.observers.length > 0">
+                    <button pButton type="button" class="p-button-danger" icon="pi pi-file"
+                      *ngIf="getTypeOfCol(col, rowIndex) == 'document'" (click)="document(rowData)"></button>
+                  </div>
+                  <div *ngIf="propil.observers.length > 0">
+                    <button pButton type="button" class="p-button-info" icon="pi pi-external-link"
+                      *ngIf="getTypeOfCol(col, rowIndex) == 'propil'" (click)="onPropil(rowData)"></button>
+                  </div>
+                  <div *ngIf="delete.observers.length > 0">
+                  <button pButton type="button" class="p-button-danger" icon="pi pi-trash"
+                    *ngIf="getTypeOfCol(col, rowIndex) == 'delete'" (click)="onDelete(rowData)"></button></div>
+                  <button pButton type="button" class="p-button-Help" icon="pi pi-angle-down"
+                    *ngIf="getTypeOfCol(col, rowIndex) == 'popTable'" (click)="getDataForPopTable(rowData)"></button>
+                </td>
+              </tr>
+            </ng-template>
+          </ng-container>
+        </p-table>
+  
+        <!-- תצוגת רשימה -->
+        <div class="list-container">
+          <div class="card-container" *ngIf="!getToggleView()">
+            <div class="card" *ngFor="let rowData of data; let rowIndex = index">
+              <div class="card-content">
+                <div *ngFor="let col of columns; let i = index" class="card-item">
+                  <span *ngIf="
+                      getTypeOfCol(col, rowIndex) != 'popTable' &&
+                      getTypeOfCol(col, rowIndex) != 'document' &&
+                      getTypeOfCol(col, rowIndex) != 'delete' &&
+                      getTypeOfCol(col, rowIndex) != 'edit'
+                    " class="p-column-title" style="
+                      font-weight: bold;
+                      font-size: 1.1em;
+                      margin-bottom: 5px;
+                    ">
+                    {{ col.header | translate }}
+                  </span>
+                  <p *ngIf="getTypeOfCol(col, rowIndex) == 'text'" style="margin: 5px 0">
+                    {{ rowData[col.field] }}
+                  </p>
+                  <p *ngIf="getTypeOfCol(col, rowIndex) == 'date'" style="margin: 5px 0">
+                    {{ rowData[col.field] | date : "dd/MM/yyyy" }}
+                  </p>
+                  <span *ngIf="getTypeOfCol(col, rowIndex) == 'obj'" class="ml-1 vertical-align-middle">
+                    {{ rowData[col.field][getobjFields(i, "obj")] }}
+                  </span>
+                  <p-tag *ngIf="getTypeOfCol(col, rowIndex) == 'position'" [value]="getPosition(rowData[col.field], i)"
+                    [severity]="getSeverity(rowData[col.field].description)"></p-tag>
+                  <button pButton type="button" class="p-button-secondary" icon="pi pi-pencil"
+                    *ngIf="getTypeOfCol(col, rowIndex) == 'edit'" (click)="onEdit(rowData)"></button>
+                  <button pButton type="button" class="p-button-danger" icon="pi pi-trash"
+                    *ngIf="getTypeOfCol(col, rowIndex) == 'delete'" (click)="onDelete(rowData)"></button>
+                  <button pButton type="button" class="p-button-Help" icon="pi pi-angle-down"
+                    *ngIf="getTypeOfCol(col, rowIndex) == 'popTable'" (click)="getDataForPopTable(rowData)"></button>
+                  <div *ngIf="addDocument.observers.length > 0">
+                    <button pButton type="button" class="p-button-danger" icon="pi pi-file"
+                      *ngIf="getTypeOfCol(col, rowIndex) == 'document'" (click)="document(rowData)"></button>
+                  </div>
+                  <button pButton type="button" class="p-button-info" icon="pi pi-external-link"
+                    *ngIf="getTypeOfCol(col, rowIndex) == 'propil'" (click)="onPropil(rowData)"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td [attr.colspan]="columns.length">
+              {{ "NoRecordsFound" | translate }}
+            </td>
+          </tr>
+        </ng-template>
+  
+        <div #popupContainer></div>
+      </div>
+    </div>
+  </div>

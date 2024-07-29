@@ -42,7 +42,7 @@ export class TaskBoardComponent implements OnInit {
   @ViewChild(GenericBourdComponent) genericBourd!: GenericBourdComponent;
   @ViewChild('popupContainer', { read: ViewContainerRef }) popupContainer!: ViewContainerRef;
 
-  constructor(private location: Location,private googleService:GoogleAuthService
+  constructor(private location: Location
     , private taskService: TaskService, private userService: UserService, private projectService: ProjectService, private resolver: ComponentFactoryResolver, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -140,8 +140,6 @@ export class TaskBoardComponent implements OnInit {
             confirmButtonColor: "#3085D6",
             confirmButtonText: "Close"
           }).then((result) => {
-            if(task.googleId)
-              this.googleService.deleteGoogleEvent(task.googleId)
             this.taskService.getAll().subscribe((data) => {
               this.tasks = data
             })
@@ -153,6 +151,4 @@ export class TaskBoardComponent implements OnInit {
       }
     );
   }
-
-  
 }

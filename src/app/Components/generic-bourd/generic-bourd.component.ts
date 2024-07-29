@@ -14,6 +14,8 @@ import { SheetsApiService } from '@app/Services/sheets-api.service';
 import { Table } from 'primeng/table';
 import Swal from 'sweetalert2';
 import { ExportToSheetComponent } from '../export-to-sheet/export-to-sheet.component';
+import { LanguageService } from '@app/Services/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface Column {
   field: string;
@@ -40,21 +42,29 @@ export class GenericBourdComponent implements OnInit, OnChanges {
   @Input() objFields: string[] = [];
   @Input() col$types: any = {};
   @Input() popTable!: boolean;
+  @Input() hideEditButton: boolean = false;
+
   @Output() edit = new EventEmitter<any>();
+  @Output() propil = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
   @Output() dataUpdated = new EventEmitter<any>();
+  @Output() addDocument = new EventEmitter<any>();
   @Output() showAddComponent = new EventEmitter<any>();
   @ViewChild('popupContainer', { read: ViewContainerRef })
   popupContainer!: ViewContainerRef;
   @ViewChild('dt') dt!: Table;
   constructor(
     private resolver: ComponentFactoryResolver,
-    private sheetsAPI: SheetsApiService
+    private sheetsAPI: SheetsApiService,
+    private translateService: TranslateService,
+    private languageService: LanguageService
   ) {}
 
   columns: Column[] = [];
   isListView: boolean = true;
   layout: string = 'list';
+  textDirection = 'rtl'; // ברירת מחדל עברית
+
   ngOnInit() {
     if (
       this.data === undefined ||
@@ -63,6 +73,11 @@ export class GenericBourdComponent implements OnInit, OnChanges {
       throw new Error('The data input is required and must be provided.');
     }
     this.generateColumns();
+    //שינוי הצדדים לימין ושמאל בהתאם לבחירת השפה
+     // האזנה לשינויים בשפה
+     this.languageService.language$.subscribe(lang => {
+      this.textDirection = lang === 'he' ? 'rtl' : 'ltr';
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -78,6 +93,13 @@ export class GenericBourdComponent implements OnInit, OnChanges {
   }
   onEdit(rowData: any) {
     this.edit.emit(rowData);
+  }
+document(rowData: any){
+  this.addDocument.emit(rowData);
+}
+
+  onPropil(rowData: any) {
+    this.propil.emit(rowData);
   }
 
   onDelete(rowData: any) {
@@ -131,13 +153,25 @@ export class GenericBourdComponent implements OnInit, OnChanges {
       sortable: false,
       filterType: 'delete',
     });
+    this.columns.push({
+      field: 'propil',
+      header: '',
+      sortable: false,
+      filterType: 'propil'
+    });
+    this.columns.push({
+      field: 'document',
+      header: '',
+      sortable: false,
+      filterType: 'document'
+    });
     if (this.globalFilterFields.length == 0 || !this.globalFilterFields) {
       this.columns.forEach((c) => this.globalFilterFields.push(c.field));
     }
     if (this.positionData.length == 0 || !this.positionData) {
       console.log(this.positionData);
     }
-  }
+   }
 
   getSeverity(status: string) {
     switch (status) {
@@ -160,7 +194,7 @@ export class GenericBourdComponent implements OnInit, OnChanges {
         return 'info';
 
       default:
-        return 'null';
+        return undefined;
     }
   }
 
@@ -219,7 +253,10 @@ export class GenericBourdComponent implements OnInit, OnChanges {
     col$types: any,
     Data1?: any,
     objFields?: string[],
-    Data2?: any[]
+    Data2?: any[],
+    customWidth?: string,
+    deleteCallBack?: (rowdata: any) => void,
+    edit?: boolean,
   ) {
     Swal.fire({
       title: 'Details',
@@ -252,12 +289,24 @@ export class GenericBourdComponent implements OnInit, OnChanges {
           }
           container.appendChild(componentRef.location.nativeElement);
           componentRef.instance.loading = false;
+          if (edit)  componentRef.instance.hideEditButton = edit 
+          // 
+          if (deleteCallBack)
+            componentRef.instance.onDelete = deleteCallBack
+          // 
         }
+        if (customWidth) {
+          const popup = Swal.getPopup();
+          if (popup) {
+            popup.style.width = customWidth; // קביעת רוחב מותאם אישית
+          }
+        }
+       
+
       },
     });
   }
   openAddComponent() {
-    debugger;
     this.showAddComponent.emit();
   }
   d(b: any) {}
@@ -271,7 +320,7 @@ export class GenericBourdComponent implements OnInit, OnChanges {
   //פופ-אפ
   async showPopupSheet(): Promise<void> {
     Swal.fire({
-      title: ' XSL-יצוא נתוני טבלה זו ל',
+      // title: ' XSL-יצוא נתוני טבלה זו ל',
       html: '<div id="popupContainer"></div>',
       showCancelButton: true,
       showConfirmButton: false,
@@ -337,6 +386,8 @@ export class GenericBourdComponent implements OnInit, OnChanges {
   async exportToSpreadSheet(eventData: any): Promise<void> {
     console.log('Submitted values:', eventData);
     const arrayOfArraysData = this.objectsToArrayOfArrays(this.data);
+    const titles: string[]=await this.translateTitles(arrayOfArraysData[0]);
+    arrayOfArraysData[0]=titles;
     if (eventData.selectedOption === 'newDoc') {
       if (eventData.fileName != null)
         this.sheetsAPI.ExportDataToNewSheet(
@@ -404,4 +455,19 @@ export class GenericBourdComponent implements OnInit, OnChanges {
     console.log('result: ', result);
     return result;
   }
+
+  translateTitles(titles: string[]) :Promise<string[]>{
+    //return titles.forEach(title=> this.translateService.get(title).subscribe(translation=> title= translation));
+    const translationPromises = titles.map(title => 
+      this.translateService.get(title).toPromise()
+    );
+
+    return Promise.all(translationPromises);
+  }
+
+  // dir: string="";
+  // changeLanguage(lang: string){
+  //   if(lang=='en') this.dir= 'ltr';
+  //   else this.dir= 'rtl';
+  // }
 }

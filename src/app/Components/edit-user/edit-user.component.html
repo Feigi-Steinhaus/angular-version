@@ -1,31 +1,134 @@
-
-<h2>Edit User</h2>
-<button (click)="edit()" *ngIf="!flag">עריכה</button>
-<div>
-   
-    <form class="editForm" #f=ngForm *ngIf="flag">
-        <div >
-            <label for="firstName"> FirstName</label>
-            <input #f type="text" name="firstName" [required]="true" maxlength="20" [(ngModel)]="user.firstName">
+<div class="edit-user-form" *ngIf="flag" [style]="this.styles" >
+    <h1 id="h1">{{ "EditUser" | translate }}</h1>
+    <div class="line"></div>
+  
+    <form class="editForm" #f="ngForm" (ngSubmit)="submit()">
+      <label for="firstName">{{ "firstName" | translate }}</label>
+      <div class="card flex justify-content-center">
+        <input
+          id="firstName"
+          name="firstName"
+          [(ngModel)]="user.firstName"
+          #firstName="ngModel"
+          required
+          maxlength="20"
+          pInputText
+          class="input-field"
+        />
+        <div class="error-message" *ngIf="firstName.invalid && firstName.touched">
+          <span *ngIf="firstName.errors?.['required']">{{
+            "FirstName is required." | translate
+          }}</span>
+          <span *ngIf="firstName.errors?.['maxlength']">{{
+            "Max length is 20." | translate
+          }}</span>
         </div>
-        <div >
-            <label for="lastName"> LastName</label>
-            <input #l type="text" name="lastName" [required]="true" maxlength="20" [(ngModel)]="user.lastName">
+      </div>
+  
+      <label for="lastName">{{ "lastName" | translate }}</label>
+      <div class="card flex justify-content-center">
+        <input
+          id="lastName"
+          name="lastName"
+          [(ngModel)]="user.lastName"
+          #lastName="ngModel"
+          required
+          maxlength="20"
+          pInputText
+          class="input-field"
+        />
+        <div class="error-message" *ngIf="lastName.invalid && lastName.touched">
+          <span *ngIf="lastName.errors?.['required']">{{
+            "LastName is required." | translate
+          }}</span>
+          <span *ngIf="lastName.errors?.['maxlength']">{{
+            "Max length is 20." | translate
+          }}</span>
         </div>
-        <div >
-            <label for="Email"> Email</label>
-            <input #n type="text" name="Email" [required]="true" maxlength="20" [(ngModel)]="user.email">
+      </div>
+  
+      <label for="role">{{ "Role" | translate }}</label>
+  <div id="role" class="card" >
+    <p-autoComplete [disabled]="!isAdmin"
+      [(ngModel)]="user.role"
+      name="role"
+      [dropdown]="true"
+      [suggestions]="roles"
+      field="description"
+      (onSelect)="onRoleSelected($event)"
+      class="select-field"
+      (completeMethod)="filterProjectAuto($event)"
+      [ngModelOptions]="{standalone: true}"
+      
+    >
+      <ng-template let-role pTemplate="item">
+        {{ role.description |translate }} <!-- הצגת המידע בצורה הנכונה -->
+      </ng-template>
+      <ng-template let-role pTemplate="selectedItem">
+        {{ role.description| translate }} <!-- הצגת המידע בצורה הנכונה בבחירה -->
+      </ng-template>
+    </p-autoComplete>
+  </div>
+      
+      <label for="email">{{ "Email" | translate }}</label>
+      <div class="card flex justify-content-center">
+        <input
+          id="email"
+          name="email"
+          [(ngModel)]="user.email"
+          #email="ngModel"
+          required
+          email
+          maxlength="50"
+          pInputText
+          class="input-field"
+        />
+        <div class="error-message" *ngIf="email.invalid && email.touched">
+          <span *ngIf="email.errors?.['required']">{{
+            "Email is required." | translate
+          }}</span>
+          <span *ngIf="email.errors?.['email']">{{
+            "Invalid email format." | translate
+          }}</span>
+          <span *ngIf="email.errors?.['maxlength']">{{
+            "Max length is 50." | translate
+          }}</span>
         </div>
-        <div >
-            <label for="Password"> Password</label>
-            <input #n type="text" name="Password" [required]="true" maxlength="20" [(ngModel)]="user.password">
-        </div>
-        <label for="role"> Role</label>
-        <select name="role" [(ngModel)]="user.role">
-            <option value="admin">Admin</option>
-            <option value="worker">Worker</option>
-            <option value="customer">Customer</option>
-        </select>
-
-        <button (click)="submit()">לסיום </button>
+      </div>
+  
+      <button type="submit" class="submit-button">{{ "Submit" | translate }}</button>
     </form>
+  </div>
+  <!-- 
+  <h2>Edit User</h2>
+  <button (click)="edit()" *ngIf="!flag">עריכה</button>
+  <div>
+     
+      <form class="editForm" #f=ngForm *ngIf="flag">
+          <div >
+              <label for="firstName"> FirstName</label>
+              <input #f type="text" name="firstName" [required]="true" maxlength="20" [(ngModel)]="user.firstName">
+          </div>
+          
+          <div >
+              <label for="lastName"> LastName</label>
+              <input #l type="text" name="lastName" [required]="true" maxlength="20" [(ngModel)]="user.lastName">
+          </div>
+          <div >
+              <label for="Email"> Email</label>
+              <input #n type="text" name="Email" [required]="true" maxlength="20" [(ngModel)]="user.email">
+          </div>
+          <div >
+              <label for="Password"> Password</label>
+              <input #n type="text" name="Password" [required]="true" maxlength="20" [(ngModel)]="user.password">
+          </div>
+          <label for="role"> Role</label>
+          <select [disabled]="!isAdmin" name="role" [(ngModel)]="user.role">
+              <option value="admin">Admin</option>
+              <option value="worker">Worker</option>
+              <option value="customer">Customer</option>
+          </select>
+  
+          <button (click)="submit()">לסיום </button>
+      </form> -->
+  

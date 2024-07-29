@@ -1,31 +1,35 @@
 <form class="addDocument" id="addDocument" [formGroup]="documentForm" (ngSubmit)="addDocumentSubmit()">
   <div class="form-group">
-    <label for="title">כותרת</label>
-    <input type="text" formControlName="title" required placeholder="כותרת" />
+    <h1>{{'AddDocument'|translate}}</h1>
+
+    <div class="line"></div>
+
+    <label for="title">{{'title'|translate}}</label>
+    <input type="text" formControlName="title" pInputText  required (change)="changeTitle()"/>
     <div *ngIf="submitted && documentForm.controls['title'].errors">
-      <span *ngIf="documentForm.controls['title'].errors['required']">שדה חובה</span>
+      <span *ngIf="documentForm.controls['title'].errors['required']">{{'RequiredField'|translate}}</span>
       <span *ngIf="documentForm.controls['title'].errors['invalidName']">כותרת קצרה</span>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="description">תאור המסמך</label>
-    <input type="text" formControlName="description" required placeholder="תאור המסמך" />
+    <label for="description">{{'descriptionDocument'|translate}}</label>
+    <input type="text" pInputText formControlName="description" required  />
     <div *ngIf="submitted && documentForm.controls['description'].errors">
-      <span *ngIf="documentForm.controls['description'].errors['required']">שדה חובה</span>
+      <span *ngIf="documentForm.controls['description'].errors['required']"> {{'RequiredField'|translate}}</span>
     </div>
   </div>
-
-  <div class="form-group">
-    <label for="file">קובץ</label>
-    <input id="document-file" type="file" (change)="onFileChange($event)" formControlName="filePath" required
-      accept=".pdf,.png,.jpg,.jpeg,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx" />
+<br>
+  <div class="form-group" *ngIf="trueTitle">
+    <label for="file">{{'chooseDocument'|translate}} </label>
+    <input class="document" pInputText  type="file" (change)="onFileChange($event)" formControlName="filePath" required    
+      accept=".pdf,.png,.jpg,.jpeg,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+      />
     <div *ngIf="submitted && documentForm.controls['filePath'].errors">
-      <span *ngIf="documentForm.controls['filePath'].errors['required']">שדה חובה</span>
+      <span *ngIf="documentForm.controls['filePath'].errors['required']">{{'RequiredField'|translate}}</span>
     </div>
   </div>
-
-  <button type="submit">לאישור</button>
+<br>
+<button type="submit" class="submit">{{'Approve'|translate}}</button>
 </form>
 
-<button (click)="openEditDocumentPopup()" class="document-file">להוספת מסמך</button>

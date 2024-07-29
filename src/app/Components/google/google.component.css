@@ -1,15 +1,38 @@
+.continue-with-wrapper {
+  display: flex;
+  align-items: center; /* מיושר למרכז */
+  width: 100%;
+  padding: 10px 0; /* רווח פנימי לכותרת ולפסים */
+}
+
+.line {
+  flex: 1; /* תפיסת מרחב */
+  height: 1px; /* גובה הפס */
+  background-color: #ccc; /* צבע הפס */
+}
+
+.continue-with-text {
+  padding: 0 10px; /* רווח פנימי לטקסט */
+  font-size: 14px; /* גודל הגופן */
+  color: #666; /* צבע הגופן */
+}
+
 .submit-button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 80%;
-  }
-  
-  .submit-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  display: block; /* תצוגה בבלוק כדי שיהיה בשורה נפרדת */
+  margin-top: 15px; /* מרחק מלמעלה */
+  background-color: #ffffff;
+  color: #000000;
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 30%; /* רוחב קבוע או שימוש ב-100% לתצוגה מלאה */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

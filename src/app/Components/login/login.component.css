@@ -1,66 +1,130 @@
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
 .login-form {
-  max-width: 400px;
-  margin: auto;
-  margin-top: 100px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.login-form h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+.login-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-mat-form-field {
-  width: 80%;
-  margin-bottom: 15px;
+.login-inputs {
+  padding: 2rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-inputs form {
+  width: 300px;
+}
+
+.login-inputs h1 {
+  margin-bottom: 1rem;
 }
 
 .input-style {
   width: 100%;
 }
 
-.error-message {
-  color: red;
-  font-size: 12px;
-  text-align: left;
+.submit-button {
+  width: 100%;
+  margin-top: 1rem;
+  /* background-color:#000000 ; */
 }
 
-.forgot-password {
-  color: #007bff;
-  cursor: pointer;
-  font-size: 14px;
-  margin-bottom: 20px;
+.forgot-password,
+.signup-text {
+  text-align: center;
+  margin-top: 1rem;
+}
+.login-image img {
+  width: 100%;
+  height: auto; 
+  max-width: 400px;  
+  max-height: 500px;  
+  object-fit: cover;  
+}
+mat-form-field {
+  .mat-form-field-wrapper {
+    background-color: white;
+    border-radius: 0 20px 20px 0;
+  }
+  .mat-form-field-outline {
+    color: #5CFFAC;
+  }
+  .mat-form-field-underline {
+    background-color: #5CFFAC;
+  }
+  .mat-form-field-outline-thick {
+    color: #5CFFAC;
+  }
+  .mat-form-field-outline-start {
+    border-left-color: #5CFFAC;
+  }
+  .mat-form-field-outline-end {
+    border-right-color: #5CFFAC;
+  }
+  .mat-form-field-outline-gap {
+    border-top-color: #5CFFAC;
+  }
+  .mat-input-element {
+    border-radius: 0 20px 20px 0;
+    background-color: white !important;
+  }
+  .mat-form-field-ripple {
+    background-color: #5CFFAC !important;
+  }
 }
 
 .submit-button {
-  background-color: #28a745;
-  color: white;
+  width: 100%;
   padding: 10px;
+  border-radius: 0 20px 20px 0;
+  background-color: #5CFFAC;
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
-  width: 80%;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #4cd99b;
+  }
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 }
 
-.submit-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.forgot-password {
+  text-align: center;
+  cursor: pointer;
+  color: #5CFFAC;
 }
 
 .signup-text {
-  cursor: pointer;
-  margin-top: 20px;
-  font-size: 14px;
+  text-align: center;
+  a {
+    color: #5CFFAC;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
-
-.signup-text a {
-  color: #007bff;
-  text-decoration: none;
+app-google{
+  text-align: center;
 }
 
 .lock-screen {

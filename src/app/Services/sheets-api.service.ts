@@ -7,12 +7,14 @@ declare const google: any;
 })
 export class SheetsApiService {
   CLIENT_ID =
-    '592088999303-njnsom6mvdcn0kpesi2ibtlhmblcfcda.apps.googleusercontent.com';
-  API_KEY = 'AIzaSyAe4wCi-LL97X_H7fhfaYnB_0cPqfdYVNU';
+    '797505767772-qhvpc3609kvs82ul23216abgfs3vnncj.apps.googleusercontent.com';
+  API_KEY = 'AIzaSyBF8YlKZHg_lo49Y7mmNV1tD8D8mlI-Gb4';
   DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
-  SCOPES =
-    'https://www.googleapis.com/auth/spreadsheets.readonly  https://www.googleapis.com/auth/drive.readonly';
-
+  // SCOPES =
+  //   'https://www.googleapis.com/auth/spreadsheets.readonly  https://www.googleapis.com/auth/drive.readonly';
+    SCOPE=
+    'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file';
+    CALLBACK='http://localhost:4200';
   tokenClient: any;
   gapiInited = false;
   gisInited = false;
@@ -44,7 +46,7 @@ export class SheetsApiService {
     gapi.load('client', () => {
       gapi.client
       .init({
-        apiKey: 'AIzaSyDOZG1f7ZQw8STwuNSiQp9PFt3Ifgw4cco',
+        apiKey: this.API_KEY,
         discoveryDocs: [
           'https://sheets.googleapis.com/$discovery/rest?version=v4',
         ],
@@ -71,10 +73,9 @@ export class SheetsApiService {
 
     this.tokenClient = google.accounts.oauth2.initTokenClient({
       client_id:
-        '895790776909-f2qsj48b8ra3uvpm0bjnobioilrh2fev.apps.googleusercontent.com',
-      scope:
-        'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file',
-      callback: 'http://localhost:4200',
+        this.CLIENT_ID,
+      scope:this.SCOPE,
+      callback: this.CALLBACK,
     });
     this.gisInited = true;
     //this.maybeEnableButtons();
@@ -375,7 +376,9 @@ export class SheetsApiService {
     spreadsheetId: string
   ): Promise<void> {
     if (this.checkInitGapi()) {
-      (await this.listGoogleSheets()).forEach(g=> console.log(`id: ${g.id}, name: ${g.name}`));
+      (await this.listGoogleSheets()).forEach((g) =>
+        console.log(`id: ${g.id}, name: ${g.name}`)
+      );
       const nameSheets: string[] = await this.getSheetNames(spreadsheetId);
       this.addDataToExistSheet(data, spreadsheetId, nameSheets[0]);
       this.navigationToTheSheet(spreadsheetId);
@@ -388,20 +391,19 @@ export class SheetsApiService {
     spreadsheetId: string,
     sheetName: string
   ) {
-    
     try {
       // Step 1: קבלת הנתונים הקיימים בגיליון
       const response = await gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: spreadsheetId,
         range: `${sheetName}!A:Z`, // תחום מספיק רחב כדי לכלול את כל הנתונים בגיליון
-        includeValuesInResponse: false //לא לכלול את הכותרות או הנתונים שכבר קיימים בטבלה
+        includeValuesInResponse: false, //לא לכלול את הכותרות או הנתונים שכבר קיימים בטבלה
       });
-  
+
       // Step 2: חישוב השורה הפנויה הראשונה
       const numRows = response.result.values
         ? response.result.values.length + 1 // הוספת 1 לאורך כדי להתחיל אחרי השורה האחרונה
         : 1; // אם אין נתונים, התחל מהשורה הראשונה
-  
+
       // Step 3: הוספת הנתונים אחרי השורה האחרונה המאוישת
       const request = {
         spreadsheetId: spreadsheetId,
@@ -412,9 +414,8 @@ export class SheetsApiService {
           values: data,
         },
       };
+    } catch (erorr) {
+      console.log('error: ', erorr);
     }
-    catch(erorr){
-      console.log("error: ", erorr);
-    }
-  } 
+  }
 }

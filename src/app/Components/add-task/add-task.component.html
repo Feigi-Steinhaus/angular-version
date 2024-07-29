@@ -1,4 +1,4 @@
-<div class="add-task-form">
+<div class="add-task-form" [style]="this.styles" >
   <form (ngSubmit)="onSubmit()" [formGroup]="taskForm">
     <h1>{{this.titlePage |translate}}</h1>
 
@@ -11,7 +11,6 @@
         <span *ngIf="title!.errors?.['required']">{{'RequiredField'|translate}}</span>
       </div>
     </div>
-
     <label for="description">{{'DescriptionInputLabel'|translate}}</label>
     <div class="card flex justify-content-center">
       <input type="text" pInputText id="description" class="input-field" formControlName="description" />
@@ -33,7 +32,7 @@
 
     <div class="card">
       <p-dropdown formControlName="priority" [options]="priorities" optionLabel="description"
-        [placeholder]="'PriorityInputSelect'|translate" class="input-field"></p-dropdown>
+        [placeholder]="'PriorityInputSelect'|translate" class="select-field"></p-dropdown>
       <div class="error-message" *ngIf="priority!.invalid && (priority!.touched || priority!.dirty)">
         <span>{{'RequiredField'|translate}}</span>
       </div>
@@ -41,7 +40,7 @@
 
     <div class="card">
       <p-dropdown formControlName="status" [options]="statuses" optionLabel="description"
-        [placeholder]="'StatusInputSelect'|translate" class="input-field"></p-dropdown>
+        [placeholder]="'StatusInputSelect'|translate" class="select-field"></p-dropdown>
       <div class="error-message" *ngIf="status!.invalid && (status!.touched || status!.dirty)">
         <span>{{'RequiredField'|translate}}</span>
       </div>
@@ -50,7 +49,7 @@
     <label for="assignedTo">{{'UserInputSelect'|translate}}</label>
     <div id="assignedTo" class="card">
       <p-autoComplete [dropdown]="true" [suggestions]="filteredUsers" (completeMethod)="filterUserAuto($event)"
-        field="firstName" (onSelect)="onUserSelected($event)" formControlName="assignedTo" class="input-field">
+        field="firstName" (onSelect)="onUserSelected($event)" formControlName="assignedTo" class="select-field">
         <ng-template let-user pTemplate="item">
           {{ displayFn(user) }}
         </ng-template>
@@ -58,7 +57,8 @@
       <div class="error-message" *ngIf="assignedTo!.invalid && (assignedTo!.touched || assignedTo!.dirty)">
         <span *ngIf="assignedTo!.errors?.['required']">{{'RequiredField'|translate}}</span>
       </div>
-      <p class="error-message" *ngIf="!assignedTo!.errors?.['required'] && userExistError">{{'ExistWorkerError'|translate}}
+      <p class="error-message" *ngIf="!assignedTo!.errors?.['required'] && userExistError">
+        {{'ExistWorkerError'|translate}}
       </p>
     </div>
 
@@ -66,11 +66,12 @@
     <div id="project" class="card">
       <p-autoComplete [dropdown]="true" [suggestions]="filteredProjects" (completeMethod)="filterProjectAuto($event)"
         field="name" (onSelect)="onProjectSelected($event)" formControlName="project"
-        class="input-field"></p-autoComplete>
+        class="select-field"></p-autoComplete>
       <div class="error-message" *ngIf="project!.invalid && (project!.touched || project!.dirty)">
         <span *ngIf="project!.errors?.['required']">{{'RequiredField'|translate}}</span>
       </div>
-      <p class="error-message" *ngIf="!project!.errors?.['required'] && projectExistError">{{'ExistProjectError'|translate}}
+      <p class="error-message" *ngIf="!project!.errors?.['required'] && projectExistError">
+        {{'ExistProjectError'|translate}}
       </p>
     </div>
 

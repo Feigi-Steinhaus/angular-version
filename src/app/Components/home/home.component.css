@@ -1,0 +1,39 @@
+
+button {
+    background-color: #343534;
+    color: white;
+    padding: 20px 30px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size:30px;
+    margin: 50px 20px;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 33.33%
+}
+
+button:hover {
+    background-color: white;
+    color: #343534;
+}
+.button-wrapper{
+  text-align: center;
+  margin-top: 100px;
+  flex-wrap: wrap;
+    
+}
+.button-wrap{
+  text-align: center;
+  margin-top: 300px;
+  flex-wrap: wrap;
+  margin-left: 30%;
+}
+.centered-button {
+
+
+  padding: 10px 20px;
+
+  cursor: pointer;
+}

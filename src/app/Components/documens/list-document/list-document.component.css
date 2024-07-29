@@ -1,37 +1,98 @@
-.file-grid {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .document-file {
-    display: inline-block;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease;
-    margin-left: 400px;
-    margin-right: 20px;
-    margin-top: 20px;
-  }
-  .document-file:hover {
-    background-color: #0056b3;
-  }
-  .file-item {
-    margin: 10px;
-    text-align: center;
-  }
-  .thumbnail {
-    width: 100px;
-    height: 100px;
-    object-fit: cover; /* ensures the image covers the area without distorting */
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
-    cursor: pointer; /* סמן עכבר של לחיצה */
-  }
-  
+.folder-list {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.document-folder {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.folder-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* רווח בין התיקיות */
+}
+
+.folder-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background-color: #f0f0f0; /* צבע רקע אפור בהיר */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* צל עדין */
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s; /* אפקט מעבר לרקע ולצל */
+}
+
+.folder-item:hover {
+  background-color: #e0e0e0; /* צבע רקע משתנה בזמן ריחוף */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* הצל הופך ליותר בולט */
+}
+
+.folder-icon {
+  font-size: 2rem; /* גודל האייקון */
+  color: #ffcc00; /* צבע האייקון של התיקייה */
+  margin-bottom: 5px; /* רווח בין האייקון לשם התיקייה */
+}
+
+.folder-name {
+  font-size: 0.9rem;
+  color: #555;
+  text-align: center;
+}
+
+.folder-filter {
+  margin: 20px;
+  padding: 10px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px; /* אם תרצה להגדיר רוחב מקסימלי */
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px; /* מרחק מהקצה השמאלי של ה-input */
+  color: #888; /* צבע האייקון */
+  font-size: 1.2rem; /* גודל האייקון */
+  transition: opacity 0.3s; /* מעבר רך להעלמת האייקון */
+  opacity: 1; /* ברירת מחדל - האייקון נראה */
+}
+
+/* מוסיף את ההגדרה הזו להעלמת האייקון כאשר יש טקסט ב-input */
+input:not(:placeholder-shown) + .search-icon {
+  opacity: 0; /* מסתיר את האייקון */
+}
+
+input {
+  padding-left: 40px; /* רווח עבור האייקון */
+  background-color: #f9f9f9; /* צבע רקע אפור בהיר */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+input:focus {
+  border-color: #a0a0a0; /* צבע הגבול כאשר ה-input בפוקוס */
+  outline: none; /* להסיר את הקווים המיוחדים של הדפדפן בפוקוס */
+}
+
+
+
+
+

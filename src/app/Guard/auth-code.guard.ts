@@ -33,7 +33,7 @@ export class AuthCodeGuard implements CanActivate {
 
   openAuthDialog(): Promise<boolean> {
     const dialogRef = this.dialog.open(AuthCodeDialogComponent, {
-      width: '300px',
+      width: '350px',
       disableClose: true,
     });
 

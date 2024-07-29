@@ -9,6 +9,7 @@ declare global {
 }
 import { UserService } from '@app/Services/user.service';
 import { DialogComponent } from '../dialog/dialog.component';
+import { EmailService } from '@app/Services/sendEmailSignUp';
 
 @Component({
   selector: 'app-google',
@@ -19,7 +20,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 @Injectable()
 export class GoogleComponent {
 
-  constructor(private dialog: MatDialog,
+  constructor(private emailService: EmailService,private dialog: MatDialog,
     private router: Router, private login: UserService) { }
 
   initGoogleOneTap(): void {
@@ -36,7 +37,7 @@ export class GoogleComponent {
 
   @Input() userData!: String;
 
-  addUser: User = { firstName: "", lastName: "", email: "", password: "", role: 2 };
+  addUser: User = { firstName: "", lastName: "", email: "", password: "", role: {id:0, description:""} };
   handleCredentialResponse(response: any): void {
     if (response.credential) {
       var idToken = response.credential;
@@ -44,9 +45,15 @@ export class GoogleComponent {
       var email = decodedToken.email;
       var userName = decodedToken.name;
       this.login.getByMail(email).subscribe(res => {
+        console.log("res");
+
+        console.log(res);
+
         if (this.userData == "logIn" && res != null) {
           this.login.loginGoogle(email, userName).subscribe(
-            (user: User) => {
+            (response: any) => {
+              console.log(response);
+              const user = response.user;
               if (user.role == 1) {
                 this.router.navigate(['/admin']);
               }
@@ -68,7 +75,7 @@ export class GoogleComponent {
             }
           );
         }
-        if(this.userData == "logIn" && res == null) {
+        if (this.userData == "logIn" && res == null) {
           this.dialog.open(DialogComponent, {
             data: {
               title: 'שגיאה',
@@ -80,13 +87,24 @@ export class GoogleComponent {
         if (this.userData == "signUp" && res == null) {
           this.addUser.email = email;
           this.addUser.firstName = userName;
-          this.addUser.role = 2;
+          this.addUser.role = {id: 1, description: "Customer"};
           this.login.addUser(this.addUser).subscribe(() => {
-            this.router.navigate(['/worker']);
+            this.dialog.open(DialogComponent, {
+              data: {
+                title: 'הצלחה',
+                context: 'נרשמתה במערכת בהצלחה',
+                buttonText: 'סגור',
+              },
+            });
+            this.emailService.sendEmailSignUp(this.addUser).subscribe(
+              () => {
+                this.router.navigate(['../worker']);
+              },
+            )
           }
           );
         }
-        if(this.userData == "signUp" && res != null) {
+        if (this.userData == "signUp" && res != null) {
           this.dialog.open(DialogComponent, {
             data: {
               title: 'שגיאה',
@@ -95,7 +113,16 @@ export class GoogleComponent {
             },
           });
         }
-      })
+      },
+        error => {
+          this.dialog.open(DialogComponent, {
+            data: {
+              title: 'שגיאה',
+              context: 'המייל לא קיים במערכת עבור ל-SIGNUP',
+              buttonText: 'סגור',
+            },
+          });
+        })
     }
   }
 
@@ -108,5 +135,6 @@ export class GoogleComponent {
 
     return JSON.parse(jsonPayload);
   }
+
 
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SheetsApiService } from '@app/Services/sheets-api.service';
+import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,7 +21,8 @@ export class ExportToSheetComponent {
   @Output() exportData = new EventEmitter<any>();
 
   constructor(
-    private sheetsAPI: SheetsApiService
+    private sheetsAPI: SheetsApiService,
+    private translate: TranslateService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -41,5 +43,4 @@ export class ExportToSheetComponent {
   async onSheetOptionChange(event: any): Promise<void> {
     this.formValues.selectedSheetOption = event.target.value;
   }
-
 }

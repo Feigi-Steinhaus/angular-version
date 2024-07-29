@@ -1,16 +1,78 @@
+
+* {
+    font-size: 13px;
+    font-family: "Varela Round", sans-serif !important;
+}
+
+.container{
+    margin:5%;
+    border-radius: 10px; /* עיגול הקצוות של הטבלה */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* הוספת צללה */
+    overflow: hidden; 
+} 
+
+/* הכפתורים למעלה */
 button {
-    background-color: #51f9a3; /* Darker mint green */
+    background-color: #51f9a2c4;
     border: none;
     color: #fff;
-    margin: 10px;
+    margin-left: 10px;
 }
+
+button:hover {
+    background-color: #9b9b9bb9;
+}
+
+/* הכפתור של העריכה */
+.p-button-secondary {
+    background-color:transparent; 
+    border: none;
+    color: black;
+}
+
+.p-button-secondary:hover {
+    background-color:rgb(229, 226, 226); 
+}
+
+/* הכפתור של המחיקה */
+.p-button-danger {
+    background-color:transparent; 
+    border: none;
+    color: #0c0101;
+}
+
+.p-button-danger:hover {
+    background-color:rgb(229, 226, 226); 
+}
+
+/* הכפתור של הפרופיל */
+.p-button-info {
+    background-color:transparent; 
+    border: none;
+    color: #0c0101;
+}
+
+.p-button-info:hover {
+    background-color:rgb(229, 226, 226); 
+}
+
+/* הכפתור של הפרטים */
+.p-button-Help {
+    background-color:transparent; 
+    border: none;
+    color:black;
+}
+
+.p-button-Help:hover{
+    background-color:rgb(229, 226, 226); 
+}
+
 .table-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
     color: #fff;
-    padding: 10px;
+    padding: 15px;
 }
 
 .table-header .p-input-icon-left {
@@ -19,21 +81,18 @@ button {
 
 .p-column-title {
     font-weight: bold;
-    /* color: #333;
-    background-color: #f0f0f0; */
     padding: 10px;
     border-radius: 5px 5px 0 0;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
 }
 
-p-table {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+/* p-table {
+    justify-content: flex-start;
+    align-items: center;
+} */
 
 p-table thead {
-    background-color: #484848;
+    background-color: #bcbbbb;
     color: #fff;
 }
 
@@ -46,7 +105,38 @@ p-table tbody tr {
 }
 
 p-table tbody tr:hover {
-    background-color: #f0f0f0;
+    background-color: #b5de38;
+}
+
+
+.list-container {
+    /* text-align: center; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 20px; /* רווח מעל הרשימה */
+}
+
+.list-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    width: 200px; /* אפשר להתאים את הרוחב לפי הצורך */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.list-item .button-group {
+    display: flex;
+    gap: 5px;
+}
+
+.pi {
+    font-family: "PrimeIcons" !important;
 }
 
 .item-container {
@@ -56,11 +146,10 @@ p-table tbody tr:hover {
 }
 
 .item {
-    border: 1px solid #616060;
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 10px;
-    width: calc(33.333% - 20px); /* Adjust to control the width of the items */
+    width: calc(33.333% - 20px); 
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -76,7 +165,7 @@ p-table tbody tr:hover {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
-    color: #333; /* Text color */
+    color: #333; 
 }
 
 .item-title {
@@ -85,36 +174,98 @@ p-table tbody tr:hover {
     margin-right: 5px;
 }
 
-.item-value {
-    color: #3d3d3d;
-    font-size: 1em;
-}
-
 .button-group {
     display: flex;
     justify-content: flex-end;
     color: #fff;
-    gap: 10px; /* Adds space between the buttons */
+    gap: 10px; 
 }
 
 .button-group button {
     border-radius: 5px;
 }
 
-.p-button-secondary {
-    background-color: #5CFFAC; /* Darker mint green */
-    border: none;
-    color: #fff;
+.p-selectable-row td {
+    border: 1px solid rgba(237, 235, 235, 0.361);
+    text-align: center;
+    padding: 0px; /* הסרת רווחים בתוך התאים */
 }
 
-.p-button-danger {
-    background-color: #5d5d5dad; /* Red */
-    border: none;
-    color: #fff;
+
+.p-selectable-row td button {
+    margin: 10px; /* הסרת מרווחים בין הכפתורים */
 }
 
-.p-button-help {
-    background-color: #696969; /* Blue */
-    border: none;
-    color: #fff;
+.p-selectable-row td .button-group {
+    display: flex; /* שימוש ב-flexbox כדי לסדר את הכפתורים בצורה אופקית */
+    gap: 0; /* הסרת המרווח בין הכפתורים */
 }
+
+.list-items-x{
+    /* width:100%; */
+    /* display: grid; */
+    /* flex-wrap: wrap; */
+    border:1px solid black
+}
+
+.p-grid {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 10px;
+    width: auto;
+    margin: 10px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.card {
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(148, 147, 147, 0.501);
+    background-color: #fff;
+    width: calc(26% - 40px);
+    /* width: auto; */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border:none
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    direction: rtl;
+}
+
+
+.card-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+    border-bottom: 1px solid rgba(202, 199, 199, 0.433);
+}
+
+.list-items-x {
+    border: 1px solid black;
+}
+
+.p-grid {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 10px;
+    width: auto;
+    margin: 10px;
+}
+ 

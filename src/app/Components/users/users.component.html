@@ -1,0 +1,25 @@
+<app-generic-bourd
+  [data]="users"
+  [loading]="loading"
+  [globalFilterFields]="[
+    'firstName',
+    'lastName',
+    'email',
+    'createdDate',
+    'role.description'
+  ]"
+  [col$types]="{
+    firstName: 'text',
+    lastName: 'text',
+    email: 'text',
+    createdDate: 'date',
+    role: 'obj'
+  }"
+  [objData]="[this.roles]"
+  [objFields]="['description']"
+  (edit)="editUser($event)"
+  (delete)="deleteUser($event)"
+  (showAddComponent)="addUser()"
+>
+</app-generic-bourd>
+<div #popupContainer></div>

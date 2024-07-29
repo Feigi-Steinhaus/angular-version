@@ -1,0 +1,30 @@
+<div class="mini-chat-container">
+    <div class="chat-message">
+      <div id="communi" class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden bg-white">
+        <div *ngIf="flag" class="chat-container">
+          <button type="button" class="chat-close" (click)="close()">x</button>
+  
+          <div class="chat-messages-container">
+  
+            <div class="chat-message" *ngFor="let c of communications">
+              <div class="message-header">
+                <span class="message-date">{{ c.date | date: 'short' }}</span>
+              </div>
+              <div class="message-body incoming">
+                <h3>{{ c.details }}</h3>
+              </div>
+            </div>
+  
+          </div>
+  
+          <div class="chat-input-container" [formGroup]="chat">
+            <input type="text" formControlName="details" placeholder="Type your message..." class="message-input">
+            <button type="submit" class="send-button" (click)="sendMessage()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  

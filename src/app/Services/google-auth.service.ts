@@ -9,6 +9,7 @@ declare var google: any;
 @Injectable({
   providedIn: 'root'
 })
+
 export class GoogleAuthService {
   private CLIENT_ID = environment.CLIENT_ID;
   private API_KEY = environment.API_KEY;
@@ -19,7 +20,7 @@ export class GoogleAuthService {
   private gapiInited = false;
   private gisInited = false;
 
-  constructor(private ngZone: NgZone,private taskService:TaskService) {
+  constructor(private ngZone: NgZone, private taskService: TaskService) {
     this.loadGapi();
     this.loadGis();
   }
@@ -72,7 +73,7 @@ export class GoogleAuthService {
     });
   }
 
-  public createGoogleEvent(eventDetails: any,taskId:number) {
+  public createGoogleEvent(eventDetails: any, taskId: number) {
     if (!this.gapiInited || !this.gisInited) {
       console.error("GAPI or GIS not initialized");
       this.reinitializeGapi();
@@ -83,7 +84,7 @@ export class GoogleAuthService {
         console.error("Error during token request", resp.error);
         throw resp;
       }
-      await this.scheduleEvent(eventDetails,taskId);
+      await this.scheduleEvent(eventDetails, taskId);
     };
     try {
       if (gapi.client.getToken() === null) {
@@ -97,7 +98,7 @@ export class GoogleAuthService {
     console.log('Token request initiated');
   }
 
-  private async scheduleEvent(eventDetails: any,taskId:number) {
+  private async scheduleEvent(eventDetails: any, taskId: number) {
     const event = {
       summary: eventDetails.nameT,
       location: "",
@@ -210,9 +211,10 @@ export class GoogleAuthService {
     });
   }
 
-  public deleteGoogleEvent(googleId: any) {
-    debugger
-    console.log("delete");
+  // 
+  public deleteGoogleEvent(googleId: string) {
+    console.log("delete google event: ", googleId);
+
     if (!this.gapiInited || !this.gisInited) {
       console.error("GAPI or GIS not initialized");
       this.reinitializeGapi();
@@ -226,6 +228,8 @@ export class GoogleAuthService {
       await this.scheduleDeleteEvent(googleId);
     };
     try {
+      console.log("try");
+
       if (gapi.client.getToken() === null) {
         this.tokenClient.requestAccessToken({ prompt: "consent" });
       } else {
@@ -238,34 +242,27 @@ export class GoogleAuthService {
   }
 
   private async scheduleDeleteEvent(googleId: string) {
-    debugger
-    console.log("delete schedule");
-    console.log(googleId);
+    console.log("scheduleDeleteEvent", googleId);
+
     const request = gapi.client.calendar.events.delete({
       calendarId: "primary",
       eventId: googleId,
     });
-  
-    request.execute((response: any) => {
-      if (response.error) {
-        console.error("Error deleting event", response.error);
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "שגיאה במחיקת המשימה",
-          showConfirmButton: false,
-          timer: 3000
-        });
-      } else {
-        console.log("Event deleted: ", response);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "המשימה נמחקה",
-          showConfirmButton: false,
-          timer: 3000
-        });
-      }
+    console.log("request", request);
+
+    request.execute((event: any) => {
+      console.log("event updated: ", event);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "המשימה נמחקה",
+        html: `
+        לצפיה בלוח המשימות
+    <a href="${event.htmlLink}" target="_blank" autofocus>לחץ כאן</a> `,
+        showConfirmButton: false,
+        timer: 3000
+      });
     });
-  }  
+  }
+  // 
 }

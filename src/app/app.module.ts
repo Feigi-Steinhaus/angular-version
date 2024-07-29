@@ -137,11 +137,18 @@ import { ListDocumentComponent } from './Components/documens/list-document/list-
 import { HomePageComponent } from './Components/home-page/home-page.component';
 import { CustomerProfileComponent } from './Components/customer-profile/customer-profile.component';
 import { ExportToSheetComponent } from './Components/export-to-sheet/export-to-sheet.component';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NavComponent } from './Components/nav/nav.component';
+import { ChatComponent } from './Components/chat/chat.component';
+import { Error404Component } from './Components/errors/error-404.component';
+import { NewComponent } from './Components/new/new.component';
+import { PropilComponent } from './Components/propil/propil.component';
+import { PropilListComponent } from './Components/propil-list/propil-list.component';
+import { UsersComponent } from './Components/users/users.component';
+import { UploadFilseComponent } from './Components/upload-filse/upload-filse.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -163,7 +170,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ListLeadsComponent,
     AddLeadComponent,
     CustomersComponent,
-    CustomersComponent,
     TaskBoardComponent,
     AddTaskComponent,
     GenericBourdComponent,
@@ -179,6 +185,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     CustomerProfileComponent,
     ExportToSheetComponent,
     NavComponent,
+    ChatComponent,
+    Error404Component,
+    NewComponent,
+    PropilComponent,
+    PropilListComponent,
+    UsersComponent,
+    UploadFilseComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -188,6 +201,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    NgxSpinnerModule,
     TranslateModule,
     BrowserModule,
     AppRoutingModule,

@@ -23,6 +23,7 @@ import { HomePageComponent } from './Components/home-page/home-page.component';
 import { CustomerProfileComponent } from './Components/customer-profile/customer-profile.component';
 import { ListDocumentComponent } from './Components/documens/list-document/list-document.component';
 import { AuthGuard } from './Guard/auth.guard';
+import { Error404Component } from './Components/errors/error-404.component';
 const routes: Routes = [
   { path: 'customer', component: CustomersComponent, canActivate: [AuthGuard], data: { roles: [3, 2, 1] } },
   { path: 'worker', component: WorkerComponentComponent, canActivate: [AuthGuard], data: { roles: [2, 1] } },
@@ -31,7 +32,7 @@ const routes: Routes = [
   { path: 'worker', component: WorkerComponentComponent },
   { path: 'admin', component: AdminComponentComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomePageComponent },
   { path: 'edit', component: EditUserComponent },
   { path: 'add', component: AddUserComponent },
   { path: 'sign-up', component: SignUpComponent },
@@ -62,6 +63,7 @@ const routes: Routes = [
     component: ResetPasswordComponent,
     canActivate: [AuthCodeGuard],
   },
+  { path: '**', component: Error404Component }
 ];
 
 @NgModule({

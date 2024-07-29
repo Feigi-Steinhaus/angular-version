@@ -9,6 +9,8 @@ import { ProjectService } from '@app/Services/project.service';
 import { TaskService } from '@app/Services/task.service';
 import { Project } from 'src/app/Model/Project';
 import { DialogComponent } from '../dialog/dialog.component';
+import { TranslateService } from '@ngx-translate/core';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -18,23 +20,28 @@ import { DialogComponent } from '../dialog/dialog.component';
 })
 export class AddProjectComponent implements OnInit {
 
+ 
   statuses: StatusCodeProject[] = [];
+  date: Date = new Date();
   projectForm: FormGroup = new FormGroup({});
+  titlePage: string = "AddProject"
   custom: Customer[] = [];
   constructor(
     private fb: FormBuilder,
     private projectService: ProjectService,
     private statusService: TaskService,
     private customerService: CustomersService,
-    private route: ActivatedRoute,
     private dialog: MatDialog,
-    private router: Router
-  ) {
-    
-  }
+    private router: Router,
+    private translate:TranslateService
+ 
+ 
+    ) {}
+  
 
-
+ 
   ngOnInit(): void {
+    this.date=new Date()
     this.createForm();
     this.statusService.getAllStatus().subscribe(
       (data: any) => {
@@ -59,28 +66,37 @@ export class AddProjectComponent implements OnInit {
       name: ['', Validators.required],
       description:  ['', Validators.required],
       startDate: ['',[ Validators.required,this.futureDateValidator.bind(this)]],
-      endDate: ['',[ Validators.required,this.futureDateValidator.bind(this),  this.dateValidator.bind(this) ]],
+      endDate: ['',[ Validators.required,this.futureDateValidator.bind(this)]],
       status: '',
-      customerId: ['', Validators.required]
+      customer: ['', Validators.required],
+     createdDate:[new Date()]
     });
+    this.dateValidator.bind(this)
   }
 
   onSubmit() {
+    if (this.projectForm.invalid) {
+      this.projectForm.markAllAsTouched();
+      return;
+    }
     if (this.projectForm.valid) {
+
       const newProject: Project = this.projectForm.value;
       this.projectService.addProject(newProject)
         .subscribe(
           (response) => {
-            if (response.isCompletedSuccessfully) {
+            console.log(response);
+            if (response) {
+               this.translate.get(['seccesaddProject','close']).subscribe(translation=> 
               this.dialog.open(DialogComponent, {
                 data: {
-                  title: 'המשימה נוספה בהצלחה',
+                  title:translation['seccesaddProject'],
                   context: newProject.name,
-                  buttonText: 'סגור',
-                },
-              });
-              this.router.navigate(['/projectTable']);
-            }
+                  buttonText:translation['close'],
+                  }, 
+                    }), );
+              Swal.close();
+              }
           },
           (error) => {
             console.error('Error adding project', error);
@@ -93,6 +109,8 @@ export class AddProjectComponent implements OnInit {
   get startDate() { return this.projectForm.get('startDate') }
   get endDate() { return this.projectForm.get('endDate') }
   get status() { return this.projectForm.get('status') }
+  get cucustomer(){ return this.projectForm.get('customer')}
+  // get createdDate(){ return this.projectForm.get('createdDate')}
   futureDateValidator(control: AbstractControl): ValidationErrors | null {
     const selectedDate = new Date(control.value);
     const today = new Date();
@@ -101,13 +119,9 @@ export class AddProjectComponent implements OnInit {
   }
 
   dateValidator(group: FormGroup) {
-    const startDate = group.get('startDate')?.value;
-    const endDate = group.get('endDate')?.value;
-
-    if (startDate && endDate && new Date(startDate) >= new Date(endDate)) {
-      return { invalidDates: true };
-    }
-
-    return null;
+    const startDate =new Date( group.get('startDate')?.value);
+    const endDate = new Date(group.get('endDate')?.value);
+    return startDate&&endDate&& startDate < endDate ? null : { invalidDates: true };
+    
   }
 }

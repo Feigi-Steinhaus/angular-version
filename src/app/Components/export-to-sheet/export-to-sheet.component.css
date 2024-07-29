@@ -1,0 +1,115 @@
+/* עיצוב כללי של הטופס */
+#form {
+    font-size: 18px;
+    max-width: 600px;
+    margin: auto;
+    padding: 15px;
+  }
+  
+  /* עיצוב קווים */
+  .line {
+    background-color: #5cffac;
+    max-width: 200px;
+    height: 10px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+  
+  /* עיצוב הכותרת */
+  #form h1 {
+    color: #000000;
+    text-align: center;
+  }
+  #form h2 {
+    color: #000000;
+    text-align: center;
+    margin: 2px 0 2px 0;
+  }
+  
+  /* עיצוב התגיות */
+  #form label {
+    font-weight: bold;
+    color: #000;
+    display: block;
+    margin: 0px 0 5px;
+  }
+  
+  /* עיצוב של שדות הקלט */
+  .input-field {
+    width: 100%;
+    border-color: #5cffac;
+  }
+  
+  /* עיצוב של תפריטים נפתחים */
+  .custom-dropdown .p-dropdown {
+    border-color: #5cffac;
+    width: 80%;
+  }
+  
+  /* עיצוב של כפתורים */
+  button {
+    font-size: 20px;
+    background-color: #5cffac;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 80%;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #81f9c5;
+  }
+  
+  /* עיצוב של הודעות שגיאה */
+  .error-message {
+    color: #ff0000;
+    font-size: 15px;
+    margin-top: 5px;
+  }
+  
+  /* עיצוב של שדות טקסט */
+  .p-inputtext {
+    width: 80%;
+    border-color: #5cffac;
+  }
+  
+  .p-inputtext:hover {
+    border-color: #5cffac !important;
+  }
+  
+  /* עיצוב של שדות בחירה */
+  .select-field .p-inputtext {
+    width: 80%;
+    border-color: #5cffac;
+    
+  }
+  
+  .select-field .p-inputtext:hover {
+    border-color: #5cffac !important;
+  }
+  
+  /* עיצוב של תפריטים אוטומטיים */
+  .p-autocomplete-dropdown {
+    background-color: white !important;
+    border-color: #000000 !important;
+    color: black !important;
+  }
+  
+  .p-autocomplete-dropdown:hover {
+    background-color: #f0f0f0 !important;
+  }
+  
+  /* שינוי צבע הרקע של כפתור הרדיו שנבחר */
+  .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+    background-color: #5cffac !important;
+    border-color: #5cffac !important;
+  }
+  
+  /* שינוי צבע הסימון בתוך כפתור הרדיו שנבחר */
+  .ui-radiobutton .ui-radiobutton-box.ui-state-active .ui-radiobutton-icon {
+    background-color: #ffffff !important;
+  }
+  

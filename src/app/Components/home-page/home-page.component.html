@@ -1,12 +1,256 @@
-<div class="button-wrapper" *ngIf="isAdmin">
- 
-    <button (click)="navigateTo('customer')">Customer</button>
-    <button (click)="navigateTo('leads')">Lead</button>
-    <button (click)="navigateTo('task')">Tasks</button>
-    <button (click)="navigateTo('projectTable')">Projects</button>
-    <button (click)="navigateTo('document')">Documentation</button>
-    <button (click)="navigateTo('customer-profile')">Customer Profile</button>
-  </div>
-    <div *ngIf="!isAdmin">
-      <button  class="button-wrap"(click)="navigateTo('document')">Documentation</button>
+<!-- <div class="flex flex-col flex-auto min-w-0" dir="rtl">
+
+    <div class="bg-card ">
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8 ">
+            <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-8 sm:my-12">
+                <div class="flex flex-auto items-center min-w-0">
+                    <div class="flex-0 w-20 h-25 rounded-full overflow-hidden">
+                        <img class="w-full h-full object-cover" src="../../../assets/images/לוגו מוגדל.png">
+                    </div>
+                    <div class="flex flex-col min-w-0 ml-4">
+                        <ng-container>
+                            <div *ngIf="user"
+                                class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                                {{'hello'|translate}} {{user.firstName}}!</div>
+                        </ng-container>
+                        <div class="flex items-center">
+                            <span class="pi pi-bell"></span>
+                            <div class="ml-1.5 leading-6 truncate text-secondary"> {{'YouHave'|translate}} {{getTodoTasksByUser().length}}
+                                {{'NewTasks'|translate}} {{'And'|translate}} {{getInProgressTasksByUser().length}} {{'InProsses'|translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center mt-6 sm:mt-0 sm:ml-2 space-x-3">
+                    <button (click)="addTask()" class="custom-button" mat-flat-button>
+                        <span class="pi pi-plus ml-2"></span>
+                        <span class="ml-2"> {{'Task'|translate}}</span>
+                    </button>
+                    <button (click)="addLead()" class="custom-button" mat-flat-button>
+                        <span class="pi pi-plus ml-2"></span>
+                        <span class="ml-2"> {{'Lead'|translate}}</span>
+                    </button>
+                    <button (click)="addLead()" class="custom-button" mat-flat-button>
+                        <span class="pi pi-plus ml-2"></span>
+                        <span class="ml-2"> {{'Customer'|translate}}</span>
+                    </button>
+                </div>
+            </div>
+            <div class="relative flex self-start pt-2 pb-1 pl-5 pr-4 cursor-pointer overflow-hidden rounded-t-xl border border-b-0 bg-default bg-gray-100"
+                matRipple [matMenuTriggerFor]="projectsMenu">
+                <div class="flex items-center">
+                    <div class="overflow-hidden">
+                        <div class="font-medium leading-6 truncate">{{selectedProject}}</div>
+                    </div>
+                    <div class="flex items-center justify-center pl-2">
+                        <span class="pi pi-angle-down"></span>
+                    </div>
+                </div>
+                <mat-menu #projectsMenu="matMenu" [xPosition]="'before'">
+                    <button mat-menu-item (click)="navigateTo('/task')"> {{'Screen'|translate}} {{'Tasks'|translate}} 
+                    </button>
+                    <button mat-menu-item (click)="navigateTo('/project')">{{'Screen'|translate}} {{'Projects'|translate}}
+                    </button>
+                    <button mat-menu-item (click)="navigateTo('/customer')">{{'Screen'|translate}} {{'Customers'|translate}}
+                    </button>
+                    <button mat-menu-item (click)="navigateTo('/leads')"> {{'Screen'|translate}} {{'Leads'|translate}}
+                    </button>
+                </mat-menu>
+            </div>
+        </div>
     </div>
+    <div class="flex-auto border-t -mt-px pt-4 sm:pt-6 bg-gray-100">
+        <div class="w-full max-w-screen-xl mx-auto ">
+            <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
+
+                <mat-tab label="Home">
+                    <ng-template matTabContent>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full min-w-0 mt-6">
+                            <div
+                                class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">{{'General'|translate}}</div>
+                                    <div class="ml-2 -mt-2 -mr-3">
+                                        <button mat-icon-button [matMenuTriggerFor]="summaryMenu">
+                                            <span class="pi pi-ellipsis-v"></span>
+                                        </button>
+                                        <mat-menu #summaryMenu="matMenu">
+                                            <button (click)="routing(getTodoTasks())" mat-menu-item>{{'ViewTheNewTasks'|translate}}</button>
+                                            <button (click)="routing(getAllTask())" mat-menu-item>{{'ViewAllTasks'|translate}}</button>
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center mt-2 ">
+                                    <div
+                                        class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-black-500">
+                                        {{getTodoTasks().length}}
+                                    </div>
+                                    <div class="text-lg font-medium  dark: text-base-color">{{'NewTasks'|translate}}</div>
+                                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary ">
+                                        <div class="text-md font-medium truncate">{{'FromToday'|translate}}:</div>
+                                        <div class="ml-1.5 text-lg font-semibold">{{getTodoTasksFromToday().length}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">כללי</div>
+                                    <div class="ml-2 -mt-2 -mr-3">
+                                        <button mat-icon-button [matMenuTriggerFor]="overdueMenu">
+                                            <span class="pi pi-ellipsis-v"></span>
+                                        </button>
+                                        <mat-menu #overdueMenu="matMenu">
+                                            <button (click)="routing(getInProgressTasks())" mat-menu-item>{{'ViewTheTasksInProgress'|translate}}</button>
+                                            <button (click)="routing(getAllTask())" mat-menu-item>{{'ViewAllTasks'|translate}}</button>
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center mt-2">
+                                    <div
+                                        class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-black-500">
+                                        {{getInProgressTasks().length}}</div>
+                                    <div class="text-lg font-medium text-red-600 dark: text-base-color">{{'TasksInProgress'|translate}}</div>
+                                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                        <div class="text-md font-medium truncate">{{'CreatedTtoday'|translate}}:</div>
+                                        <div class="ml-1.5 text-lg font-semibold">
+                                            {{getInProgressTasksFromToday().length}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">{{'General'|translate}}</div>
+                                    <div class="ml-2 -mt-2 -mr-3">
+                                        <button mat-icon-button [matMenuTriggerFor]="issuesMenu">
+                                            <span class="pi pi-ellipsis-v"></span>
+                                        </button>
+                                        <mat-menu #issuesMenu="matMenu">
+                                            <button (click)="routing(getTasksDueToday())" mat-menu-item>{{'ShowingTasksToSubmitToday'|translate}}</button>
+                                            <button (click)="routing(getAllTask())" mat-menu-item>{{'ViewAllTasks'|translate}}</button>
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center mt-2">
+                                    <div
+                                        class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-black-500">
+                                        {{getTasksDueToday().length}}</div>
+                                    <div class="text-lg font-medium text-amber-600 dark:text-amber-500 text-base-color">
+                                        משימות להגשה היום</div>
+                                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                        <div class="text-md font-medium truncate">{{'OfWhichWereClosed'|translate}}:</div>
+                                        <div class="ml-1.5 text-lg font-semibold">{{getTasksDueTodayAndClosed().length}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden bg-white">
+                                <div class="flex items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">{{'General'|translate}}</div>
+                                    <div class="ml-2 -mt-2 -mr-3">
+                                        <button mat-icon-button [matMenuTriggerFor]="featuresMenu">
+                                            <span class="pi pi-ellipsis-v"></span>
+                                        </button>
+                                        <mat-menu #featuresMenu="matMenu">
+                                            <button (click)="routing(getTasksOverdue())" mat-menu-item>{{'ViewTheOverdueTasks'|translate}}</button>
+                                            <button (click)="routing(getAllTask())" mat-menu-item>{{'ViewAllTasks'|translate}}</button>
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center mt-2">
+                                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-black">
+                                        {{getTasksOverdue().length}}</div>
+                                    <div class="text-lg font-medium text-green-600 dark: text-base-color">{{'OverdueTtasks'|translate}}</div>
+                                    <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                        <div class="text-md font-medium truncate">{{'OfWhichFromYesterday'|translate}}: </div>
+                                        <div class="ml-1.5 text-lg font-semibold">
+                                            {{getTasksOverdueFromYesterday().length}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div #fullScreenComponent
+                                class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden bg-white">
+                                <div class="flex flex-col sm:flex-row items-start justify-between fullscreen-container">
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">{{'LeadsAndCustomers'|translate}}</div>
+                                    <span (click)="openFullScreen()" class="pi pi-expand"
+                                        style="font-size: 2rem"></span>
+                                </div>
+                                <div class="flex flex-col flex-auto mt-6" *ngIf="chartTaskDistribution">
+                                    <apx-chart class="flex-auto w-full h-96" [chart]="chartTaskDistribution.chart"
+                                        [labels]="chartTaskDistribution.labels" [legend]="chartTaskDistribution.legend"
+                                        [plotOptions]="chartTaskDistribution.plotOptions"
+                                        [series]="chartTaskDistribution.series" [states]="chartTaskDistribution.states"
+                                        [stroke]="chartTaskDistribution.stroke" [colors]="chartTaskDistribution.colors"
+                                        [tooltip]="chartTaskDistribution.tooltip" [yaxis]="chartTaskDistribution.yaxis"
+                                        [grid]="chartTaskDistribution.grid">
+                                    </apx-chart>
+                                </div>
+                                <div
+                                    class="grid grid-cols-2 border-t divide-x -m-6 mt-4 bg-gray-50 dark:bg-transparent">
+                                    <div class="flex flex-col items-center justify-center p-6 sm:p-8">
+                                        <div class="text-5xl font-semibold leading-none tracking-tighter">
+                                            {{leads.length}}</div>
+                                        <div class="mt-1 text-center text-secondary">{{'Leads'|translate}}</div>
+                                    </div>
+                                    <div class="flex flex-col items-center justify-center p-6 sm:p-8">
+                                        <div class="text-5xl font-semibold leading-none tracking-tighter">
+                                            {{customers.length}}</div>
+                                        <div class="mt-1 text-center text-secondary">{{'Customers'|translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="bg-white sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                                <div class="flex flex-col sm:flex-row items-start justify-between">
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">{{'ActiveProjects'|translate}}</div>
+                                    <div class="mt-3 sm:mt-0 sm:ml-2">
+                                        <mat-button-toggle-group value="topTen" (change)="onToggleChange($event)">
+                                            <mat-button-toggle value="topTen">{{'PartialView'|translate}}</mat-button-toggle>
+                                            <mat-button-toggle value="show-all">{{'ShowAll'|translate}}</mat-button-toggle>
+                                        </mat-button-toggle-group>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col mt-2 ">
+                                    <ng-container *ngFor="let project of projects; let last = last">
+                                        <div class="project-container flex flex-row items-center justify-between py-4 px-0.5"
+                                            [ngClass]="{'border-b': !last}">
+                                            <div class="flex flex-col">
+                                                <div class="font-medium font-bold font-semibold">{{project.name}}</div>
+                                                <div
+                                                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
+                                                    <ng-container *ngIf="project.description">
+                                                        <div class="flex items-center">
+                                                            <span class="pi pi-circle-off"></span>
+                                                            <div class="mr-1.5 ml-1.5 text-md text-secondary">
+                                                                {{project.description}}</div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="project.status?.description">
+                                                        <div class="flex items-center">
+                                                            <span class="pi pi-circle-off"></span>
+                                                            <div class="mr-1.5 text-md text-secondary">
+                                                                {{project.status?.description}}</div>
+                                                        </div>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <button mat-icon-button>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+
+
+<div #popupContainer></div>
+<app-generic-bourd hidden></app-generic-bourd> -->

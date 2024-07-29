@@ -1,50 +1,237 @@
+<!-- <form id="form" #form="ngForm">
+  <div class="field-radiobutton">
+    <p-radioButton
+      name="group1"
+      value="newDoc"
+      [(ngModel)]="formValues.selectedOption"
+      inputId="option2"
+    ></p-radioButton>
+    <label for="option2">{{ "newDoc" | translate }}</label>
+  </div>
+  <div class="field-radiobutton">
+    <p-radioButton
+      name="group1"
+      value="existingDoc"
+      [(ngModel)]="formValues.selectedOption"
+      inputId="option3"
+    ></p-radioButton>
+    <label for="option3">Option 3</label>
+  </div>
 
-<form id="form" #form="ngForm">
-    <h2>בחר אפשרות</h2>
+  <div>
+    <label for="newDoc">דף חדש</label><br />
+    <input
+      type="radio"
+      id="newDoc"
+      name="radioOption"
+      value="newDoc"
+      (change)="onRadioChange($event)"
+      [(ngModel)]="formValues.selectedOption"
+      [ngModelOptions]="{ standalone: true }"
+      required
+      
+    />
+    <label for="existingDoc">מסמך קיים</label>
+    <input
+      type="radio"
+      id="existingDoc"
+      name="radioOption"
+      value="existingDoc"
+      (change)="onRadioChange($event)"
+      [(ngModel)]="formValues.selectedOption"
+      [ngModelOptions]="{ standalone: true }"
+      required
+    /> -->
+<!-- <div class="error-message" *ngIf="title!.invalid && (title!.touched || title!.dirty)">
+        <span *ngIf="title!.errors?.['required']">{{'RequiredField'|translate}}</span>
+      </div> -->
+<!-- </div> -->
+
+<!-- <label for="title">{{'TitleInputLabel'|translate}}</label>
+    <div class="card flex justify-content-center">
+      <input type="text" id="title" pInputText class="input-field" formControlName="title" />
+      <div class="error-message" *ngIf="title!.invalid && (title!.touched || title!.dirty)">
+        <span *ngIf="title!.errors?.['required']">{{'RequiredField'|translate}}</span>
+      </div>
+    </div>
+ -->
+
+<!-- <div *ngIf="formValues.selectedOption === 'newDoc'">
+    <input
+      type="text"
+      [(ngModel)]="formValues.fileName"
+      name="fileName"
+      placeholder="הכנס שם לקובץ"
+      required
+    />
+  </div>
+
+  <div *ngIf="formValues.selectedOption === 'existingDoc'">
+    <select [(ngModel)]="formValues.selectedFile" name="selectedFile" required>
+      <option value="" disabled selected>בחר מסמך</option>
+      <option *ngFor="let file of existingFiles" [value]="file.id">
+        {{ file.name }}
+      </option>
+    </select>
     <div>
-      <input type="radio" id="newDoc" name="radioOption" value="newDoc" (change)="onRadioChange($event)" [(ngModel)]="formValues.selectedOption" [ngModelOptions]="{standalone: true}" required>
-      <label for="newDoc">דף חדש</label><br>
-      <input type="radio" id="existingDoc" name="radioOption" value="existingDoc" (change)="onRadioChange($event)" [(ngModel)]="formValues.selectedOption" [ngModelOptions]="{standalone: true}" required>
-      <label for="existingDoc">מסמך קיים</label>
+      <input
+        type="radio"
+        id="newSheet"
+        name="sheetOption"
+        value="newSheet"
+        (change)="onSheetOptionChange($event)"
+        [(ngModel)]="formValues.selectedSheetOption"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <label for="newSheet">גליון חדש</label><br />
+      <input
+        type="radio"
+        id="existingSheet"
+        name="sheetOption"
+        value="existingSheet"
+        (change)="onSheetOptionChange($event)"
+        [(ngModel)]="formValues.selectedSheetOption"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <label for="existingSheet">גליון קיים</label>
     </div>
-  
-    <div *ngIf="formValues.selectedOption === 'newDoc'">
-      <input type="text" [(ngModel)]="formValues.fileName" name="fileName" placeholder="הכנס שם לקובץ" required >
-    </div>
-  
-    <div *ngIf="formValues.selectedOption === 'existingDoc'">
-      <select [(ngModel)]="formValues.selectedFile" name="selectedFile" required>
-        <option value="" disabled selected>בחר מסמך</option>
-        <option *ngFor="let file of existingFiles" [value]="file.id" >{{file.name}}</option>
-      </select>
-      <div>
-        <input type="radio" id="newSheet" name="sheetOption" value="newSheet" (change)="onSheetOptionChange($event)" [(ngModel)]="formValues.selectedSheetOption" [ngModelOptions]="{standalone: true}">
-        <label for="newSheet">גליון חדש</label><br>
-        <input type="radio" id="existingSheet" name="sheetOption" value="existingSheet" (change)="onSheetOptionChange($event)" [(ngModel)]="formValues.selectedSheetOption" [ngModelOptions]="{standalone: true}">
-        <label for="existingSheet">גליון קיים</label>
-      </div>
-  
-      <div *ngIf="formValues.selectedSheetOption === 'newSheet'">
-        <input type="text" [(ngModel)]="formValues.sheetName" name="sheetName" placeholder="הכנס שם גליון">
-      </div>
-  
-      <!-- <div *ngIf="formValues.selectedSheetOption === 'existingSheet'">
+
+    <div *ngIf="formValues.selectedSheetOption === 'newSheet'">
+      <input
+        type="text"
+        [(ngModel)]="formValues.sheetName"
+        name="sheetName"
+        placeholder="הכנס שם גליון"
+      />
+    </div> -->
+
+<!-- <div *ngIf="formValues.selectedSheetOption === 'existingSheet'">
         <select [(ngModel)]="formValues.selectedSheet" name="selectedSheet">
           <option value="" disabled selected>בחר גליון</option>
           <option *ngFor="let sheet of existingSheets" [value]="sheet">{{sheet.name}}</option>
         </select>
       </div> -->
-    </div>
-    <button
+<!-- </div>
+  <button
     mat-raised-button
     color="primary"
     type="submit"
     [disabled]="!this.form.valid"
-    [hidden]="this.formValues.selectedOption==undefined || this.formValues.selectedOption==''"
+    [hidden]="
+      this.formValues.selectedOption == undefined ||
+      this.formValues.selectedOption == ''
+    "
     (click)="onSubmit()"
   >
     ייצוא
   </button>
-   
-  </form>
-  
+</form> -->
+<form id="form" #form="ngForm">
+  <h1>{{ "titleExport" | translate }}</h1>
+  <h2>{{ "chooseMatchOption" | translate }}</h2>
+  <div class="line"></div>
+
+  <div class="p-field-radiobutton">
+    <p-radioButton
+      name="radioOption"
+      value="newDoc"
+      [(ngModel)]="formValues.selectedOption"
+      inputId="newDoc"
+      (onClick)="onRadioChange($event)"
+    ></p-radioButton>
+    <label for="newDoc">{{ "newDoc" | translate }}</label>
+    <br />
+    <p-radioButton
+      name="radioOption"
+      value="existingDoc"
+      [(ngModel)]="formValues.selectedOption"
+      inputId="existingDoc"
+      (onClick)="onRadioChange($event)"
+    ></p-radioButton>
+    <label for="existingDoc">{{ "existingDoc" | translate }}</label>
+  </div>
+
+  <div *ngIf="formValues.selectedOption === 'newDoc'">
+    <div class="p-field">
+      <!-- <label for="fileName">הכנס שם לקובץ</label> -->
+      <input
+        pInputText
+        id="fileName"
+        [(ngModel)]="formValues.fileName"
+        name="fileName"
+        required
+        class="input-field"
+        placeholder="שם המסמך"
+      />
+    </div>
+  </div>
+
+  <div *ngIf="formValues.selectedOption === 'existingDoc'">
+    <div class="p-field">
+      <!-- <label for="selectedFile">בחר מסמך</label> -->
+      <p-dropdown
+        [options]="existingFiles"
+        [(ngModel)]="formValues.selectedFile"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="בחר מסמך"
+        name="selectedFile"
+        class="custom-dropdown"
+      ></p-dropdown>
+    </div>
+
+    <div class="p-field-radiobutton">
+      <p-radioButton
+        name="sheetOption"
+        value="newSheet"
+        [(ngModel)]="formValues.selectedSheetOption"
+        inputId="newSheet"
+        (onClick)="onSheetOptionChange($event)"
+      ></p-radioButton>
+      <label for="newSheet">גליון חדש</label>
+      <p-radioButton
+        name="sheetOption"
+        value="existingSheet"
+        [(ngModel)]="formValues.selectedSheetOption"
+        inputId="existingSheet"
+        (onClick)="onSheetOptionChange($event)"
+      ></p-radioButton>
+      <label for="existingSheet">גליון קיים</label>
+    </div>
+
+    <div *ngIf="formValues.selectedSheetOption === 'newSheet'">
+      <div class="p-field">
+        <!-- <label for="sheetName">הכנס שם גליון</label> -->
+        <input
+          pInputText
+          id="sheetName"
+          [(ngModel)]="formValues.sheetName"
+          name="sheetName"
+          class="input-field"
+          placeholder="שם הגיליון"
+        />
+      </div>
+    </div>
+
+    <!-- <div *ngIf="formValues.selectedSheetOption === 'existingSheet'">
+      <div class="p-field">
+        <p-dropdown
+          [(ngModel)]="formValues.selectedSheet"
+          optionLabel="name"
+          optionValue="id"
+          placeholder="בחר גליון"
+          name="selectedSheet"
+          class="custom-dropdown"
+        ></p-dropdown>
+      </div>
+    </div> -->
+  </div>
+
+  <button
+    pButton
+    label="ייצוא"
+    icon="pi pi-check"
+    (click)="onSubmit()"
+    [disabled]="!form.valid || !formValues.selectedOption"
+  ></button>
+</form>

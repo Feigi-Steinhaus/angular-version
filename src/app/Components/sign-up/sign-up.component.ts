@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@app/Services/user.service';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { EmailService } from '@app/Services/sendEmailSignUp';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,14 +16,20 @@ export class SignUpComponent {
   signUpForm!: FormGroup;
   submitted = false;
   passwordsMatch = true;
-  userData: String="signUp"
+  userData: String = 'signUp';
 
   userDetails = {
     password: '',
     password2: '',
   };
 
-  constructor(private router: Router,private formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(
+    private emailService: EmailService,
+    private dialog: MatDialog,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.fullForm(); // Call the function to initialize the form
@@ -33,7 +42,7 @@ export class SignUpComponent {
       lastName: ['', [Validators.required]],
       password: ['', [Validators.required, this.passwordValidator]],
       ConfirmPassword: ['', [Validators.required]],
-      role: [2]
+      role: [{ id: 1, description: 'Customer' }],
     });
   }
 
@@ -56,17 +65,29 @@ export class SignUpComponent {
   }
 
   async toEnter() {
-    console.log("enter");
+    console.log('enter');
     this.submitted = true;
-    if (this.signUpForm.invalid) { return; }
-    console.log("seccsus");
+    if (this.signUpForm.invalid) {
+      return;
+    }
+    console.log('seccsus');
     this.userService.addUser(this.signUpForm.value).subscribe(
       () => {
-        console.log("User added");
-        this.router.navigate(['../worker']);
+        console.log('User added');
+        this.emailService
+        .sendEmailSignUp(this.signUpForm.value)
+        .subscribe(() => {
+          this.router.navigate(['../login']);
+        });
       },
       (error) => {
-        console.log(error);
+        this.dialog.open(DialogComponent, {
+          data: {
+            title: 'שגיאה',
+            context: 'כתובת מייל כבר קיימת',
+            buttonText: 'סגור',
+          },
+        });
       }
     );
   }
