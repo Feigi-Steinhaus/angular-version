@@ -15,7 +15,7 @@ export class EmailService {
 
   sendEmailSignUp(user: User): Observable<any> {
     const name = `${user.firstName} ${user.lastName}`;
-    return this.http.post<any>("https://localhost:7141/SendEmail", { name: name });
-}
+    return this.http.post<any>(`${this.apiUrl}`, { name: name });
+  }
 
 }

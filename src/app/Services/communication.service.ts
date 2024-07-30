@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Communication } from '../Model/Communication';
+import { environment } from 'src/enviroments/environment';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ export class CommunicationService {
 
   constructor(private http:HttpClient) { }
   
-  apiUrl="https://localhost:7141/Communication"
+  private apiUrl = `${environment.apiUrl}Communication/`;
 
   AddNewCommunication(requestBody:Communication):Observable<Communication>{
     console.log(requestBody);

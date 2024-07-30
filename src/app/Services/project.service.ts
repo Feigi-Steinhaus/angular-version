@@ -32,7 +32,7 @@ export class ProjectService {
     return this.http.delete<Boolean>(`${this.apiUrl}?id=${id}`, { headers: this.headers });
   }
   getTaskByProject(projectId:string):Observable<any>{
-    return this.http.get(`https://localhost:7141/projects/getAllTasks${projectId}`, { headers: this.headers });
+    return this.http.get(`${this.apiUrl}getAllTasks${projectId}`, { headers: this.headers });
 }
 update(project:Project,id:number): Observable<Project>{
   project.projectId = id;
@@ -40,7 +40,7 @@ update(project:Project,id:number): Observable<Project>{
   return this.http.put<Project>(`${this.apiUrl}`, project);
 }
 getProjectById(id:number): Observable<any> {
-  return this.http.get(`https://localhost:7141/projects/getById?id=${id}`, { headers: this.headers });
+  return this.http.get(`${this.apiUrl}getById?id=${id}`, { headers: this.headers });
 }
 
 // getToken(): string | null {

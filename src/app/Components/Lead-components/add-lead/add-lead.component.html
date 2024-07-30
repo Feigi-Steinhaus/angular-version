@@ -1,132 +1,173 @@
-<div class="add-container">
+<div class="add-lead-form" [style]="this.styles">
   <!-- <h2>הוספת ליד</h2> -->
-  <form [formGroup]="userForm" (ngSubmit)="submitForm()">
-    <mat-form-field class="form-field" appearance="fill">
-      <mat-label>שם פרטי</mat-label>
-      <input matInput type="text" id="firstName" formControlName="firstName" />
-      <mat-error
+  <form [formGroup]="userForm" (ngSubmit)="submitForm()" >
+    <h1 id="h1" >{{this.titlePage |translate}}</h1>
+    <div class="line"></div>
+
+    <label for="firstName">{{'firstName' | translate }}</label>
+    <div class="card flex justify-content-center">
+      <input
+        type="text"
+        id="firstName"
+        pInputText
+        class="input-field"
+        formControlName="firstName"
+      />
+      <div
+        class="error-message"
         *ngIf="
           userForm.controls['firstName'].invalid &&
           userForm.controls['firstName'].touched
         "
       >
         <span *ngIf="userForm.controls['firstName'].hasError('required')"
-          >שדה חובה</span
+          >{{'RequiredField'| translate}}</span
         >
         <span *ngIf="userForm.controls['firstName'].hasError('minlength')"
-          >שם פרטי חייב להכיל לפחות 2 תווים</span
+          > {{'firstName' | translate}} {{'mustContainMintwoCharacters'|translate}}</span
         >
-      </mat-error>
-    </mat-form-field>
+      </div>
+    </div>
 
-    <mat-form-field class="form-field" appearance="fill">
-      <mat-label>שם משפחה</mat-label>
-      <input matInput type="text" id="lastName" formControlName="lastName" />
-      <mat-error
+    <label> {{'lastName'| translate}}</label>
+    <div class="card flex justify-content-center">
+      <input
+        pInputText
+        class="input-field"
+        type="text"
+        id="lastName"
+        formControlName="lastName"
+      />
+      <div
+        class="error-message"
         *ngIf="
           userForm.controls['lastName'].invalid &&
           userForm.controls['lastName'].touched
         "
       >
-        <span *ngIf="userForm.controls['lastName'].hasError('required')"
-          >שדה חובה</span
-        >
-        <span *ngIf="userForm.controls['lastName'].hasError('minlength')"
-          >שם משפחה חייב להכיל לפחות 2 תווים</span
-        >
-      </mat-error>
-    </mat-form-field>
+      <span *ngIf="userForm.controls['lastName'].hasError('required')"
+      >{{'RequiredField'| translate}}</span
+    >
+    <span *ngIf="userForm.controls['lastName'].hasError('minlength')"
+      > {{'lastName' | translate}} {{'mustContainMintwoCharacters'|translate}}</span
+    >
+      </div>
+    </div>
 
-    <mat-form-field class="form-field" appearance="fill">
-      <mat-label>טלפון</mat-label>
-      <input matInput type="tel" id="phone" formControlName="phone" />
-      <mat-error
+    <label>{{'phone'|translate}}</label>
+    <div class="card flex justify-content-center">
+      <input
+        pInputText
+        class="input-field"
+        type="tel"
+        id="phone"
+        formControlName="phone"
+      />
+      <div
+        class="error-message"
         *ngIf="
           userForm.controls['phone'].invalid &&
           userForm.controls['phone'].touched
         "
       >
         <span *ngIf="userForm.controls['phone'].hasError('required')"
-          >שדה חובה</span
+        >{{'RequiredField'| translate}}</span
         >
         <span *ngIf="userForm.controls['phone'].hasError('minlength')"
-          >מספר טלפון חייב להכיל לפחות 9 תווים</span
+          >{{'phoneNumberMust9Characters'|translate}}</span
         >
 
         <span *ngIf="userForm.controls['phone'].hasError('maxlength')"
-          >מספר טלפון מכיל מקסימום 12 תווים</span
+          >{{'phoneNumberContainMax12Characters'|translate}}</span
         >
-      </mat-error>
-    </mat-form-field>
+        <div *ngIf="userForm.controls['phone'].errors?.['invalidPhone']">{{'validPhone'|translate}}</div>
+      </div>
+    </div>
 
-    <mat-form-field class="form-field" appearance="fill">
-      <mat-label>אימייל</mat-label>
-      <input matInput type="email" id="email" formControlName="email" />
-      <mat-error
+    <label>{{'email'|translate}}</label>
+    <div class="card flex justify-content-center">
+      <input
+        pInputText
+        class="input-field"
+        type="email"
+        id="email"
+        formControlName="email"
+      />
+      <div
+        class="error-message"
         *ngIf="
           userForm.controls['email'].invalid &&
           userForm.controls['email'].touched
         "
       >
         <span *ngIf="userForm.controls['email'].hasError('required')"
-          >שדה חובה</span
+        >{{'RequiredField'| translate}}</span
         >
         <span *ngIf="userForm.controls['email'].hasError('email')"
-          >מייל אינו תקין</span
+          >{{'InvalidEmailError'|translate}}</span
         >
-      </mat-error>
-    </mat-form-field>
+      </div>
+    </div>
 
-    <mat-form-field class="form-field" appearance="fill">
-      <mat-label>מקור</mat-label>
-      <input matInput type="text" id="source" formControlName="source" />
-      <mat-error
+    <label>{{'source'|translate}}</label>
+    <div class="card flex justify-content-center">
+      <input
+        pInputText
+        class="input-field"
+        type="text"
+        id="source"
+        formControlName="source"
+      />
+      <div
+        class="error-message"
         *ngIf="
           userForm.controls['source'].invalid &&
           userForm.controls['source'].touched
         "
       >
         <span *ngIf="userForm.controls['source'].hasError('required')"
-          >שדה חובה</span
+        >{{'RequiredField'| translate}}</span
         >
-      </mat-error>
-    </mat-form-field>
+      </div>
+    </div>
 
-    <mat-form-field class="form-field" appearance="fill">
-      <mat-label>שם העסק</mat-label>
+    <label>{{'businessName'| translate}}</label>
+    <div class="card flex justify-content-center">
       <input
-        matInput
+        pInputText
+        class="input-field"
         type="text"
         id="business_name"
         formControlName="businessName"
       />
-      <mat-error
+      <div
+        class="error-message"
         *ngIf="
           userForm.controls['businessName'].invalid &&
           userForm.controls['businessName'].touched
         "
       >
         <span *ngIf="userForm.controls['businessName'].hasError('required')"
-          >שדה חובה</span
+        >{{'RequiredField'| translate}}</span
         >
-      </mat-error>
-    </mat-form-field>
+      </div>
+    </div>
 
-    <mat-form-field class="form-field" appearance="fill">
-      <mat-label>פתקים</mat-label>
-      <input matInput type="text" id="notes" formControlName="notes" />
-    </mat-form-field>
+    <label>{{'notes'| translate}}</label>
+    <div class="card flex justify-content-center">
+      <input
+        pInputText
+        class="input-field"
+        type="text"
+        id="notes"
+        formControlName="notes"
+      />
+    </div>
 
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      [disabled]="userForm.invalid"
-    >
+    <button type="submit" class="submit-button" [disabled]="userForm.invalid">
       שליחה
     </button>
   </form>
-
 </div>
 <!-- <button (click)="backListLeadsPage()"
 mat-raised-button
@@ -143,3 +184,147 @@ type="button"
     <span>לחזרה לעמוד הלידים</span>
   </button>  -->
 
+<!-- <div class="add-container">
+   
+    <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>שם פרטי</mat-label>
+        <input matInput type="text" id="firstName" formControlName="firstName" />
+        <mat-error
+          *ngIf="
+            userForm.controls['firstName'].invalid &&
+            userForm.controls['firstName'].touched
+          "
+        >
+          <span *ngIf="userForm.controls['firstName'].hasError('required')"
+            >שדה חובה</span
+          >
+          <span *ngIf="userForm.controls['firstName'].hasError('minlength')"
+            >שם פרטי חייב להכיל לפחות 2 תווים</span
+          >
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>שם משפחה</mat-label>
+        <input matInput type="text" id="lastName" formControlName="lastName" />
+        <mat-error
+          *ngIf="
+            userForm.controls['lastName'].invalid &&
+            userForm.controls['lastName'].touched
+          "
+        >
+          <span *ngIf="userForm.controls['lastName'].hasError('required')"
+            >שדה חובה</span
+          >
+          <span *ngIf="userForm.controls['lastName'].hasError('minlength')"
+            >שם משפחה חייב להכיל לפחות 2 תווים</span
+          >
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>טלפון</mat-label>
+        <input matInput type="tel" id="phone" formControlName="phone" />
+        <mat-error
+          *ngIf="
+            userForm.controls['phone'].invalid &&
+            userForm.controls['phone'].touched
+          "
+        >
+          <span *ngIf="userForm.controls['phone'].hasError('required')"
+            >שדה חובה</span
+          >
+          <span *ngIf="userForm.controls['phone'].hasError('minlength')"
+            >מספר טלפון חייב להכיל לפחות 9 תווים</span
+          >
+  
+          <span *ngIf="userForm.controls['phone'].hasError('maxlength')"
+            >מספר טלפון מכיל מקסימום 12 תווים</span
+          >
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>אימייל</mat-label>
+        <input matInput type="email" id="email" formControlName="email" />
+        <mat-error
+          *ngIf="
+            userForm.controls['email'].invalid &&
+            userForm.controls['email'].touched
+          "
+        >
+          <span *ngIf="userForm.controls['email'].hasError('required')"
+            >שדה חובה</span
+          >
+          <span *ngIf="userForm.controls['email'].hasError('email')"
+            >מייל אינו תקין</span
+          >
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>מקור</mat-label>
+        <input matInput type="text" id="source" formControlName="source" />
+        <mat-error
+          *ngIf="
+            userForm.controls['source'].invalid &&
+            userForm.controls['source'].touched
+          "
+        >
+          <span *ngIf="userForm.controls['source'].hasError('required')"
+            >שדה חובה</span
+          >
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>שם העסק</mat-label>
+        <input
+          matInput
+          type="text"
+          id="business_name"
+          formControlName="businessName"
+        />
+        <mat-error
+          *ngIf="
+            userForm.controls['businessName'].invalid &&
+            userForm.controls['businessName'].touched
+          "
+        >
+          <span *ngIf="userForm.controls['businessName'].hasError('required')"
+            >שדה חובה</span
+          >
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>פתקים</mat-label>
+        <input matInput type="text" id="notes" formControlName="notes" />
+      </mat-form-field>
+  
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="userForm.invalid"
+      >
+        שליחה
+      </button>
+    </form> -->
+
+<!-- </div> -->
+<!-- <button (click)="backListLeadsPage()"
+  mat-raised-button
+  color="primary"
+  type="button"
+  
+  >
+  לחזרה לעמוד הלידים
+  </button> -->
+<!-- 
+  
+    <button mat-raised-button color="primary" (click)="backListLeadsPage()" class="back-button" >
+      <mat-icon>arrow_back</mat-icon>
+      <span>לחזרה לעמוד הלידים</span>
+    </button>  -->

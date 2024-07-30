@@ -13,6 +13,10 @@ export class UserService {
   constructor(private http: HttpClient) {}
   private apiUrl = `${environment.apiUrl}User/`;
 
+  getHello()
+  {
+    return this.http.get<any>(`${environment.apiUrl}`);
+  }
   getToken() {
     console.log('token' + localStorage.getItem('token'));
 

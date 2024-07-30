@@ -1,4 +1,3 @@
-
 import { Component, ComponentFactoryResolver, ElementRef, OnInit, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '@app/Model/Task';

@@ -1,44 +1,79 @@
-
-.edit-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #f9f9f9;
-  }
-  
-  .edit-container form div {
-    margin-bottom: 15px;
-  }
-  
-  .edit-container label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .edit-container input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  .edit-container button {
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .edit-container button:hover {
-    background: #0056b3;
-  }
-  
-  .edit-container div span {
-    color: red;
-    font-size: 12px;
-  }
-  
+.edit-task-form {
+  font-size: 18px;
+  max-width: 600px;
+  margin: auto;
+  padding: 15px;
+  /* text-align: right; */
+}
+.line {
+  background-color: #5CFFAC;
+  max-width: 200px;
+  height: 10px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.edit-task-form h1 {
+  color: #000000;
+  text-align: center;
+}
+.input-style {
+  border-color: #5CFFAC;
+  width: 100%;
+}
+.card label {
+  font-weight: bold;
+  color: #FFFFFF;
+  /* text-align: right; */
+  /* width: 100%; */
+}
+.card {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  width: 100%;
+}
+button.submit-button {
+  font-size: 20px;
+  background-color: #5CFFAC;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 400px;
+  margin-top: 10px;
+  align-items: center;
+}
+button.submit-button:hover {
+  background-color: #81F9C5;
+}
+.error-message {
+  color: #FF0000;
+  font-size: 15px;
+  margin-top: 5px;
+}
+.input-field {
+  width: 400px ;
+}
+.input-field:hover {
+  border-color: #5CFFAC !important;
+}
+::ng-deep .input-field .p-inputtext {
+  width: 600px ;
+}
+::ng-deep .input-field .p-inputtext:hover {
+  border-color: #5CFFAC !important;
+}
+::ng-deep .select-field .p-inputtext {
+  width: 350px ;
+}
+::ng-deep .select-field .p-inputtext:hover {
+  border-color: #5CFFAC !important;
+}
+::ng-deep .p-autocomplete-dropdown {
+  background-color: white !important;
+  border-color: #000000 !important;
+  color: black !important;
+}
+::ng-deep .p-autocomplete-dropdown:hover {
+  background-color: #F0F0F0 !important;
+}

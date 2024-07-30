@@ -3,12 +3,13 @@
 <app-generic-bourd 
 [data]="Leads" 
 [loading]="loading"
-[globalFilterFields]="['phone', 'email']"
+[globalFilterFields]="['firstName', 'lastName', 'businessName']"
 [col$types]="{'firstName':'text', 'lastName': 'text','email':'text','phone':'text','source':'text','createdDate':'date','lastContactedDate':'date','businessName':'text'}"
 [positionData]="[]"
 [objData]="[]"
 [objFields]="[]"
 (edit)="onEditLead($event)"
+(propil)="propil($event)"  
 (delete)="onDeleteLead($event)"
 (showAddComponent)="addLead()"
 >
