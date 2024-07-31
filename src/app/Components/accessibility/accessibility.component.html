@@ -1,0 +1,34 @@
+<button id="accessibility-btn" aria-label="Toggle accessibility options" (click)="toggleAccessibilityMenu()">
+    <img src="assets/images/נגישות.jpg" alt="Accessibility Icon">
+</button>
+<div id="accessibility-menu" class="hidden">
+    <div class="container-item">
+        <span class="material-icons">contrast</span> ניגודיות
+        <p-inputSwitch #switch1 id="one" inputId="switch1" (onChange)="toggleHighContrast()"></p-inputSwitch>
+    </div>
+    <div class="container-item">
+        <span class="material-icons">record_voice_over</span> קורא טקסט
+        <p-inputSwitch #switch2 id="five" inputId="switch2" (onChange)="handleSwitch1Change($event)"></p-inputSwitch>
+    </div>
+    <div class="container-item">
+        <span class="material-icons">text_fields</span> הגדל את הטקסט
+        <p-inputSwitch #switch3 id="two" ariaLabelledBy="switch2" (onChange)="handleSwitch2Change($event)"></p-inputSwitch>
+    </div>
+    <div class="container-item">
+        <span class="material-icons">highlight</span> הדגשת כותרות
+        <p-inputSwitch #switch4 id="seven" ariaLabelledBy="switch2" (onChange)="handleSwitch8Change($event)" class="green-switch"></p-inputSwitch>
+    </div> 
+    <div class="container-item">
+        <span class="material-icons">format_underlined</span> הוסף קווים תחתונים
+        <p-inputSwitch #switch5 id="three" ariaLabelledBy="switch3" (onChange)="handleSwitch3Change($event)"></p-inputSwitch>
+    </div>
+    <div class="container-item">
+        <span class="material-icons">zoom_in</span> זום
+        <p-inputSwitch #switch6 id="four" ariaLabelledBy="switch6" (onChange)="handleSwitch6Change($event)"></p-inputSwitch>
+    </div>
+    <div class="container-item">
+        <span class="material-icons">keyboard</span> מקלדת על המסך
+        <p-inputSwitch id="keyboardSwitch" ariaLabelledBy="switch7" (onChange)="handleSwitch7Change($event)"></p-inputSwitch>
+        <div *ngIf="showKeyboard" #keyboardContainer class="simple-keyboard"></div>
+    </div>
+</div>

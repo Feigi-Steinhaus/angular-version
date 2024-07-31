@@ -17,6 +17,7 @@ import { LeadService } from '@app/Services/lead.service';
 import { CustomersService } from '@app/Services/customers.service';
 import { ProjectService } from '@app/Services/project.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '@app/Services/auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -24,8 +25,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-
-  constructor(private router: Router, private _userService: UserService, private TaskService: TaskService, private _leadService: LeadService, private _customerService: CustomersService, private resolver: ComponentFactoryResolver, private ProjectService: ProjectService, private translate: TranslateService,
+  constructor(private router: Router, private _userService: UserService, private authService: AuthService, private TaskService: TaskService, private _leadService: LeadService, private _customerService: CustomersService, private resolver: ComponentFactoryResolver,
+    private ProjectService: ProjectService, private translate: TranslateService
   ) { }
   isAdmin: boolean = false;
   user: User | any
@@ -38,7 +39,7 @@ export class HomePageComponent implements OnInit {
   tasks!: Task[]
   loading: boolean = true;
 
-  currentEmail: string = localStorage.getItem("email") ?? 'מסתננת';
+  // currentEmail: string = localStorage.getItem("email") ?? 'מסתננת';
   componentType!: Type<any>;
 
   @ViewChild('popupContainer', { read: ViewContainerRef }) popupContainer!: ViewContainerRef;
@@ -76,9 +77,11 @@ export class HomePageComponent implements OnInit {
     );
     this._userService.getAll().subscribe((data: User[]) => {
       this.users = data
-      this.user = data.find(u => u.email == this.currentEmail)
+      const token = localStorage.getItem("token")?.toString()!
+      const idtoken = this.authService.getClaim(token, "id")
+      this.user = this.users.find(u => u.userId == idtoken)
       if (!this.user)
-        this.user.firstName = this.currentEmail
+        this.user.firstName = "משתמש"
     },
       (error: any) => {
         console.error('Error fetching user:', error);
@@ -105,17 +108,14 @@ export class HomePageComponent implements OnInit {
     this.TaskService.getAllStatus().subscribe(
       (data) => {
         this.statuses = data
-
       },
       (error: any) => {
         console.error('Error fetching customers:', error);
       }
     );
-
     this.TaskService.getAllPriorities().subscribe(
       (data) => {
         this.priorities = data
-
       },
       (error: any) => {
         console.error('Error fetching priorities:', error);

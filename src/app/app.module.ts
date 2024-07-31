@@ -152,6 +152,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FileUploadModule } from 'primeng/fileupload';
+import { AccessibilityComponent } from './Components/accessibility/accessibility.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -194,6 +195,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PropilListComponent,
     UsersComponent,
     UploadFilseComponent,
+    AccessibilityComponent,
   ],
   imports: [
     TranslateModule.forRoot({

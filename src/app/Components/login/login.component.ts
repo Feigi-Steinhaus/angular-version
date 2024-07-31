@@ -1,6 +1,6 @@
 
-import { Component, OnInit, signal } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators, } from '@angular/forms';
+import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators, } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/Model/User';
 import { ResetPasswordService } from '../../Services/reset-password.service';
@@ -10,6 +10,7 @@ import { UserService } from 'src/app/Services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { KeyboardService } from '@app/Services/keyboard.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,8 +30,14 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private active: ActivatedRoute,
-    private translate: TranslateService
-  ) {}
+    private translate: TranslateService,
+    private fb: FormBuilder,
+    private Keyboardservice: KeyboardService
+  ) {   this.logInForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
+  });}
+
 
   hide = signal(true);
 
@@ -56,23 +63,19 @@ export class LoginComponent implements OnInit {
     const email = this.email.value;
     const password = this.pass.value;
     this.userService.login(email, password).subscribe(
-      (user: any) => {
-        this.router.navigate(['/home'])
+      (user: any) => {  
+        console.log(user.role);
+           
         this.spinner.hide();
-        //     console.log("user");
-        //     if (user.role == 1) {
-        //       this.router.navigate(['/admin'], { relativeTo: this.active });
-        //     }
-        //     if (user.role == 2) {
-        //       this.router.navigate(['/worker'], { relativeTo: this.active });
-        //     }
-        //     if (user.role == 3) {
-        //       this.router.navigate(['/customer'], { relativeTo: this.active });
-        //     }
-        //   },
+            if (user.user.role.id == 1) {
+              this.router.navigate(['/Dashboard'], { relativeTo: this.active });
+              console.log(user.user.role,"user.role");             
+            }
+            else{
+              this.router.navigate(['/home'], { relativeTo: this.active });
+            }
       },
       (error) => {
-        // Check if errorMessage contains the specific string
         if (error.status == 500) {
           Swal.fire({
             text: 'Email not found',
@@ -154,4 +157,19 @@ export class LoginComponent implements OnInit {
   signUp() {
     this.router.navigate(['../signUp']);
   }
+
+  @ViewChild('emailInput') emailInput!: ElementRef;
+  @ViewChild('passwordInput') passwordInput!: ElementRef;
+
+
+  ngAfterViewInit() {
+    this.emailInput.nativeElement.addEventListener('focus', () => {
+      this.Keyboardservice.setActiveInput(this.emailInput.nativeElement, this.logInForm.get('email') as FormControl);
+    });
+
+    this.passwordInput.nativeElement.addEventListener('focus', () => {
+      this.Keyboardservice.setActiveInput(this.passwordInput.nativeElement, this.logInForm.get('password') as FormControl);
+    });
+  }
+
 }

@@ -175,4 +175,10 @@ export class UserService {
   getAllRoles(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}roles`, { headers: this.headers });
   }
+
+  signOut() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('authData');
+  }
 }
